@@ -39,12 +39,6 @@ models <- lapply(
 
         load(file);
 
-        mem <- data.frame(
-            outcome = outcome,
-            top.features = res$top.features,
-            rf.mb = as.numeric(gsub(' Mb', '', format(object.size(fit.rf), 'Mb'))),
-            glmnet.mb = as.numeric(gsub(' Mb', '', format(object.size(fit.glmnet), 'Mb')))
-            );
 
         if (res$model == 'glmnet') {
             model <- fit.glmnet;
@@ -57,19 +51,28 @@ models <- lapply(
         model$trainingData <- NULL;
         print(format(object.size(model), 'Mb'));
 
-
-        return(list(
-            model = model,
-            mem = mem
-            ));
+        return(model);
         }
     );
+
+# fix outcome names
+outcomes[outcomes == 't.stage'] <- 't.category';
+outcomes[outcomes == 'MYC_cna'] <- 'MYC.cna.gain';
+outcomes[grepl('_cna', outcomes)] <- paste0(outcomes[grepl('_cna', outcomes)], '.loss');
+outcomes[outcomes == 'NKX3.1_cna.loss'] <- 'NKX3-1_cna.loss';
+outcomes <- gsub('_', '.', outcomes);
+
 names(models) <- outcomes;
-# save(
-#     models,
-#     file = 'models.RData'
-#     );
 
 print(format(object.size(models), 'Mb'));
 
-usethis::use_data(models, overwrite = TRUE);
+# save all models
+all.models <- models;
+usethis::use_data(all.models, overwrite = TRUE);
+
+# smaller example models for examples/testing
+lapply(all.models, function(x) format(object.size(x), 'Mb'));
+
+example.models <- all.models[c(1, 4)];
+format(object.size(example.models), 'Mb');
+usethis::use_data(example.models, overwrite = TRUE);
