@@ -9,9 +9,12 @@ Description: More about what it does (maybe more than one line)
 Depends:
     R (>= 2.10)
 Imports:
+    caret
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE) 
+RoxygenNote: 7.2.3
