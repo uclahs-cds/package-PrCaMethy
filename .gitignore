@@ -7,5 +7,3 @@
 .RData
 *.Rproj*
 .Rproj.user
-
-*.sh
