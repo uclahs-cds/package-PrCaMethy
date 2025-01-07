@@ -12,9 +12,9 @@ names(genes) <- genes;
 # the gene column can contain multiple genes separated by ;
 progressr::handlers(list(
     progressr::handler_progress(
-        format   = ":spin :current/:total (:message) [:bar] :percent in :elapsed ETA: :eta",
+        format   = ':spin :current/:total (:message) [:bar] :percent in :elapsed ETA: :eta',
         width    = 60,
-        complete = "+"
+        complete = '+'
         )
     ));
 # progressr::with_progress({
