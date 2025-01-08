@@ -1,6 +1,6 @@
 #res.date <- '2024-12-13';
 res.date <- '2025-01-07'; # includes knn imputation
-test.mode <- TRUE;
+test.mode <- FALSE;
 
 path.ml.res <- paste0('/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/output/prediction/', res.date, '_F72-predict-clinical-and-drivers_gene-methy_association-filter_discrete-methyFALSE.RData');
 tolerance <- 0.03 # use smallest model within __ of best model
@@ -13,7 +13,7 @@ if (test.mode) {
     outcomes <- c('log2.psa.continuous', 't.stage');
     example.models.index <- 1:2
 } else {
-    example.models.idnex <- c(1,4);
+    example.models.index <- c(1,4);
     }
 
 models <- lapply(
@@ -55,7 +55,7 @@ models <- lapply(
             }
         #print(format(object.size(model), 'Mb'));
         #lapply(model, function(x) format(object.size(x), 'Mb'))
-        #model$terms <- NULL;
+        model$terms <- NULL; # unncessary high memory object
         #model$trainingData <- NULL;
         print(format(object.size(model), 'Mb'));
 
