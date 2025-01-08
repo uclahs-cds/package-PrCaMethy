@@ -1,0 +1,26 @@
+#' predict.features
+#'
+#' @examples
+#'data('example.models');
+#'
+#'### example gene-level methylation data
+#'data('example.data.gene.methy');
+#'# note this dataset is derived from the following commands:
+#'# data('example.data');
+#'# example.data.gene.methy <- gene.methylation(example.data);
+#'check <- validate.gene.methy.data(example.data.gene.methy, example.models);
+#'stopifnot(check$val.passed);
+#'
+#'features <- predict.features(example.data.gene.methy, example.models);
+#'features;
+predict.features <- function(gene.methy.data, models) {
+    check <- validate.gene.methy.data(gene.methy.data, models);
+    if (!check$val.passed) {
+        print('Error: gene.methy.data is missing genes that are required for predicting features.  See the returned results for a list of missing genes per feature.')
+        return(check);
+        }
+    features <- lapply(models, function(x) predict(x, newdata = gene.methy.data));
+    features <- do.call(data.frame, features);
+    stopifnot(all(rownames(features) == rownames(gene.methy.data)));
+    return(features);
+    }
