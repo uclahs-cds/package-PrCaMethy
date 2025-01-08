@@ -1,5 +1,8 @@
 #' predict.features
 #'
+#' Main function used to predict various clinical and molecular features from gene-level methylation data in prostate cancer patients.
+#' @inheritParams validate.gene.methy.data
+#' @export
 #' @examples
 #'data('example.models');
 #'
