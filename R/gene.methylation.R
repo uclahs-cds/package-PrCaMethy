@@ -5,6 +5,7 @@
 #'
 #' @param methy methylation dataset where rownames give patient ids and columns use CpG ids
 #' @param print.progress TRUE/FALSE to show progress bar
+#' @export
 #' @examples
 #'data(example.data);
 #'example.data.gene.methy <- gene.methylation(example.data);
