@@ -1,18 +1,55 @@
 ---
-name: R-CMD-check
-'on':
-  workflow_dispatch:
-  pull_request:
-    branches:
-      - main
+name: R Package CI
+
+on:
   push:
     branches:
       - main
-  schedule:
-    - cron: '0 0 * * MON'
+  pull_request:
+    branches:
+      - main
+
 jobs:
-  R-CMD-check:
+  test:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: r-lib/actions/setup-tinytex@v2
-      - uses: uclahs-cds/tool-R-CMD-check-action@stable
+      # Step 1: Checkout repository with Git LFS
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          lfs: true  # Enable Git LFS
+
+      # Step 2: Set up R environment
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+
+      # Step 3: Cache R packages
+      - name: Cache R packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/R
+          key: ${{ runner.os }}-R-${{ hashFiles('**/*.R') }}
+          restore-keys: |
+            ${{ runner.os }}-R-
+
+      # Step 4: Install system dependencies
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev pandoc qpdf
+
+      # Step 5: Install R dependencies and rcmdcheck
+      - name: Install R dependencies
+        run: |
+          Rscript -e "install.packages('remotes', repos = 'https://cloud.r-project.org')"
+          Rscript -e "install.packages('rcmdcheck', repos = 'https://cloud.r-project.org')"
+          Rscript -e "remotes::install_deps(dependencies = TRUE)"
+
+      # Step 6: Install TinyTeX (optional, for LaTeX-based vignettes)
+      - name: Install TinyTeX
+        uses: r-lib/actions/setup-tinytex@v2
+
+      # Step 7: Run R CMD check
+      - name: Run R CMD check
+        uses: r-lib/actions/check-r-package@v2
