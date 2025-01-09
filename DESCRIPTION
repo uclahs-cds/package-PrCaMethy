@@ -10,7 +10,8 @@ Depends:
     R (>= 2.10)
 Imports:
     caret,
-    progressr
+    progressr,
+    randomForest
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
