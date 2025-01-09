@@ -25,9 +25,14 @@
 #'check <- validate.gene.methy.data(example.data.gene.methy, example.models);
 #'stopifnot(check$val.passed);
 #'
-#' #check$required.genes; # genes required to fit each model
-#' #check$missing.genes; # genes that are required but completely missing in your data
-#' #check$required.genes.with.high.missing; # genes that are required and have a proportion of missing values greater than `prop.missing.cutoff`
+#'# genes required to fit each model:
+#' #check$required.genes;
+#'
+#'# genes that are required but completely missing in your data:
+#' #check$missing.genes;
+#'
+#'# genes that are required and have a proportion of missing values greater than `prop.missing.cutoff`
+#' #check$required.genes.with.high.missing;
 validate.gene.methy.data <- function(gene.methy.data, models, prop.missing.cutoff = 0.2) {
     required.genes <- lapply(models, function(x) colnames(x$ptype));
     required.genes.prop.missing <- lapply(

@@ -22,7 +22,7 @@ features.predict <- function(gene.methy.data, models) {
         print('Error: gene.methy.data is missing genes that are required for predicting features.  See the returned results for a list of missing genes per feature.')
         return(check);
         }
-    features <- lapply(models, function(x) caret:::predict.train(x, newdata = gene.methy.data));
+    features <- lapply(models, function(x) caret::predict.train(x, newdata = gene.methy.data));
     features <- do.call(data.frame, features);
     stopifnot(all(rownames(features) == rownames(gene.methy.data)));
     return(features);
