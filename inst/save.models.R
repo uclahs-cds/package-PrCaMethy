@@ -1,6 +1,8 @@
 #res.date <- '2024-12-13';
-res.date <- '2025-01-07'; # includes knn imputation
-test.mode <- FALSE;
+#res.date <- '2025-01-07'; # includes knn imputation
+res.date <- '2025-01-08'; # includes knn imputation + xyinterface + max 5000 features
+compress <- 'xz';
+test.mode <- TRUE;
 
 path.ml.res <- paste0('/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/output/prediction/', res.date, '_F72-predict-clinical-and-drivers_gene-methy_association-filter_discrete-methyFALSE.RData');
 tolerance <- 0.03 # use smallest model within __ of best model
@@ -55,7 +57,7 @@ models <- lapply(
             }
         #print(format(object.size(model), 'Mb'));
         #lapply(model, function(x) format(object.size(x), 'Mb'))
-        model$terms <- NULL; # unncessary high memory object
+        #model$terms <- NULL; # unncessary high memory object
         #model$trainingData <- NULL;
         print(format(object.size(model), 'Mb'));
 
@@ -78,11 +80,11 @@ print(format(object.size(models), 'Mb'));
 
 # save all models
 all.models <- models;
-usethis::use_data(all.models, overwrite = TRUE);
+usethis::use_data(all.models, overwrite = TRUE, compress = compress);
 
 # smaller example models for examples/testing
 lapply(all.models, function(x) format(object.size(x), 'Mb'));
 
 example.models <- all.models[example.models.index];
 format(object.size(example.models), 'Mb');
-usethis::use_data(example.models, overwrite = TRUE);
+usethis::use_data(example.models, overwrite = TRUE, compress = compress);

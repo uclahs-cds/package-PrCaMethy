@@ -11,4 +11,4 @@ example.data <- example.data[sample(1:nrow(example.data), 5),];
 
 format(object.size(example.data), 'Mb');
 
-usethis::use_data(example.data, overwrite = TRUE);
+usethis::use_data(example.data, overwrite = TRUE, compress = 'xz');

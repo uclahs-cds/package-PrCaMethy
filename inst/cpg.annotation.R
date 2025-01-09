@@ -60,4 +60,4 @@ cpg.annotation <- merge(
     all.x = TRUE
     );
 
-usethis::use_data(cpg.annotation, overwrite = TRUE);
+usethis::use_data(cpg.annotation, overwrite = TRUE, compress = 'xz');
