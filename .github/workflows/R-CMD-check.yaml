@@ -26,8 +26,9 @@ jobs:
       # Step 3: Install R package dependencies
       - name: Install dependencies
         run: |
-          Rscript -e 'install.packages(c("remotes", "rcmdcheck"))'
-          Rscript -e 'remotes::install_deps(dependencies = TRUE)'
+          Rscript -e "install.packages('remotes')"
+          Rscript -e "remotes::install_deps(dependencies = TRUE)"
+          Rscript -e "install.packages('rcmdcheck')"
 
       - name: Run R CMD check using r-lib
         uses: r-lib/actions/check-r-package@v2
