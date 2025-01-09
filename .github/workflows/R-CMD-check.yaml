@@ -29,5 +29,5 @@ jobs:
           Rscript -e 'install.packages("remotes")'
           Rscript -e 'remotes::install_deps(dependencies = TRUE)'
 
-      name: Run R CMD check using r-lib
+      - name: Run R CMD check using r-lib
         uses: r-lib/actions/check-r-package@v2
