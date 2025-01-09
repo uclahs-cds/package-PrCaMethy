@@ -1,18 +1,34 @@
 ---
-name: R-CMD-check
-'on':
-  workflow_dispatch:
-  pull_request:
-    branches:
-      - main
+name: R Package CI
+
+on:
   push:
     branches:
       - main
-  schedule:
-    - cron: '0 0 * * MON'
+  pull_request:
+    branches:
+      - main
+
 jobs:
-  R-CMD-check:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: r-lib/actions/setup-tinytex@v2
-      - uses: uclahs-cds/tool-R-CMD-check-action@stable
+      # Step 1: Checkout repository and initialize Git LFS
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          lfs: true  # Enable Git LFS
+
+      # Step 2: Setup R environment
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+
+      # Step 3: Install R package dependencies
+      - name: Install dependencies
+        run: |
+          Rscript -e 'install.packages("remotes")'
+          Rscript -e 'remotes::install_deps(dependencies = TRUE)'
+
+      # Step 4: Run R CMD check
+      - name: Run R CMD check
+        run: R CMD check .
