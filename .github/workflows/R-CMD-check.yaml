@@ -17,8 +17,6 @@ jobs:
       # Step 1: Checkout repository with Git LFS
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          lfs: true  # Enable Git LFS
 
       # Step 2: Set up R environment
       - name: Set up R
