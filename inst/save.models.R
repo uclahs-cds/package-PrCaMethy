@@ -1,11 +1,13 @@
 #res.date <- '2024-12-13';
 #res.date <- '2025-01-07'; # includes knn imputation
-res.date <- '2025-01-08'; # includes knn imputation + xyinterface + max 5000 features
+#res.date <- '2025-01-08'; # includes knn imputation + xyinterface + max 5000 features
+res.date <- '2025-01-10'; # xyinterface + onlyRF
+discrete.methy <- FALSE;
 compress <- 'xz';
-test.mode <- TRUE;
+test.mode <- FALSE;
 
-path.ml.res <- paste0('/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/output/prediction/', res.date, '_F72-predict-clinical-and-drivers_gene-methy_association-filter_discrete-methyFALSE.RData');
-tolerance <- 0.03 # use smallest model within __ of best model
+path.ml.res <- paste0('/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/output/prediction/', res.date, '_F72-predict-clinical-and-drivers_gene-methy_association-filter_discrete-methy', discrete.methy, '.RData');
+tolerance <- 0 # use smallest model within __ of best model
 
 load(path.ml.res);
 
@@ -51,9 +53,9 @@ models <- lapply(
 
 
         if (res$model == 'glmnet') {
-            model <- fit.glmnet;
+            model <- fit.glmnet$finalModel;
         } else {
-            model <- fit.rf
+            model <- fit.rf$finalModel;
             }
         #print(format(object.size(model), 'Mb'));
         #lapply(model, function(x) format(object.size(x), 'Mb'))
@@ -64,6 +66,12 @@ models <- lapply(
         return(model);
         }
     );
+
+model.size <- sapply(models, function(x) format(object.size(x), 'Mb'));
+model.size <- as.numeric(gsub(' Mb', '', model.size));
+max(model.size);
+median(model.size);
+
 
 # fix outcome names
 outcomes[outcomes == 'log2.psa.continuous'] <- 'log2p1.psa.continuous';
@@ -82,9 +90,9 @@ print(format(object.size(models), 'Mb'));
 all.models <- models;
 usethis::use_data(all.models, overwrite = TRUE, compress = compress);
 
-# smaller example models for examples/testing
-lapply(all.models, function(x) format(object.size(x), 'Mb'));
+# # smaller example models for examples/testing
+# lapply(all.models, function(x) format(object.size(x), 'Mb'));
 
-example.models <- all.models[example.models.index];
-format(object.size(example.models), 'Mb');
-usethis::use_data(example.models, overwrite = TRUE, compress = compress);
+# example.models <- all.models[example.models.index];
+# format(object.size(example.models), 'Mb');
+# usethis::use_data(example.models, overwrite = TRUE, compress = compress);
