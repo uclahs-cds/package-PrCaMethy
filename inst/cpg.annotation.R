@@ -1,5 +1,6 @@
 # https://www.bioconductor.org/packages/release/data/annotation/html/IlluminaHumanMethylation450kanno.ilmn12.hg19.html
 # v 0.6.1
+devtools::load_all();
 library(IlluminaHumanMethylation450kanno.ilmn12.hg19);
 
 data(Other);

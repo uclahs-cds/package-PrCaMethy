@@ -1,3 +1,5 @@
+devtools::load_all();
+
 data(cpg.annotation);
 data(example.data);
 methy <- example.data; # methylation data with patient ids as rownames, CpGs as columns

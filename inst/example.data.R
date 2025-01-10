@@ -1,3 +1,4 @@
+devtools::load_all();
 path.data <- '/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/data/2024-07-16_pooled_tumour_normal_all_cpgs_all_cohorts.rds';
 
 example.data <- readRDS(path.data);
