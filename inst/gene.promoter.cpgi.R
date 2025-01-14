@@ -59,3 +59,6 @@ names(gene.promoter.cpgi)[check];
 names(gene.promoter.cpgi) <- gsub('-', '.', names(gene.promoter.cpgi));
 
 usethis::use_data(gene.promoter.cpgi, overwrite = TRUE, compress = 'xz');
+
+# no longer need cpg.annotation.  Delete since takes up too much memory.
+file.remove('../data/cpg.annotation.rda');
