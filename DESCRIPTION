@@ -9,9 +9,12 @@ Description: More about what it does (maybe more than one line)
 Depends:
     R (>= 2.10)
 Imports:
+    impute,
+    pamr,
     progress,
     progressr,
     randomForest
+Remotes: BiocManager::impute
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
