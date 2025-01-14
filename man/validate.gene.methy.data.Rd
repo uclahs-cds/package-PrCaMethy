@@ -4,7 +4,7 @@
 \alias{validate.gene.methy.data}
 \title{validate.gene.methy.data}
 \usage{
-validate.gene.methy.data(gene.methy.data, models, prop.missing.cutoff = 0.2)
+validate.gene.methy.data(gene.methy.data, models, prop.missing.cutoff = 0.3)
 }
 \arguments{
 \item{gene.methy.data}{A data frame with gene-level methylation data, created by \link{gene.methylation}.  Patients are rows and columns are genes.}
@@ -27,14 +27,14 @@ Note that genes with acceptable levels of missing values are later imputed using
 If you'd rather use a different imputation method, then make sure to impute missing values before calling \link{features.predict}.
 }
 \examples{
-data('example.models');
+data('all.models');
 
 ### example gene-level methylation data
 data('example.data.gene.methy');
 # note this dataset is derived from the following commands:
 # data('example.data');
 # example.data.gene.methy <- gene.methylation(example.data);
-check <- validate.gene.methy.data(example.data.gene.methy, example.models);
+check <- validate.gene.methy.data(example.data.gene.methy, all.models);
 stopifnot(check$val.passed);
 
 # genes required to fit each model:
