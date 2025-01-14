@@ -15,14 +15,14 @@
 #' * `required.genes.with.high.missing` a list of genes that are required and have a proportion of missing values greater than `prop.missing.cutoff`
 
 #' @examples
-#'data('example.models');
+#'data('all.models');
 #'
 #'### example gene-level methylation data
 #'data('example.data.gene.methy');
 #'# note this dataset is derived from the following commands:
 #'# data('example.data');
 #'# example.data.gene.methy <- gene.methylation(example.data);
-#'check <- validate.gene.methy.data(example.data.gene.methy, example.models);
+#'check <- validate.gene.methy.data(example.data.gene.methy, all.models);
 #'stopifnot(check$val.passed);
 #'
 #'# genes required to fit each model:
@@ -33,8 +33,22 @@
 #'
 #'# genes that are required and have a proportion of missing values greater than `prop.missing.cutoff`
 #' #check$required.genes.with.high.missing;
-validate.gene.methy.data <- function(gene.methy.data, models, prop.missing.cutoff = 0.2) {
-    required.genes <- lapply(models, function(x) colnames(x$ptype));
+validate.gene.methy.data <- function(gene.methy.data, models, prop.missing.cutoff = 0.3) {
+    # check if all columns of gene.methy.data are numeric class
+    stopifnot('all columns in gene.methy.data should be numeric class' = all(sapply(gene.methy.data, is.numeric)));
+
+    required.genes <- lapply(
+        X = models,
+        FUN = function(x) {
+            if (inherits(x, 'randomForest')) {
+                return(x$xNames);
+            } else if (inherits(x, 'glmnet')) {
+                return(x$xNames);
+            } else {
+                stop('each model in the models list object must class randomForest or glmnet');
+                }
+            }
+        );
     required.genes.prop.missing <- lapply(
         X = required.genes,
         FUN = function(x) {

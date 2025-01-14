@@ -50,8 +50,12 @@ gene.methylation <- function(methy, print.progress = TRUE) {
             all(rownames(x) == rownames(gene.promoter.median.methy[[1]]))
             }
         );
-    stopifnot(all(check));
 
     gene.promoter.median.methy.final <- do.call(data.frame, gene.promoter.median.methy);
+
+    check <- which(apply(gene.promoter.median.methy.final, 2, function(x) all(is.na(x))));
+    if (length(check) > 0) {
+        gene.promoter.median.methy.final <- gene.promoter.median.methy.final[,-check];
+        }
     return(gene.promoter.median.methy.final);
     }
