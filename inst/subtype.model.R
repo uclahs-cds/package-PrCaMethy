@@ -7,4 +7,3 @@ subtype.model.required.cpgs <- rownames(subtype.model$centroids);
 
 usethis::use_data(subtype.model, overwrite = TRUE, compress = 'xz');
 usethis::use_package('pamr');
-
