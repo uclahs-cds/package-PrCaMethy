@@ -15,7 +15,6 @@ Imports:
     progress,
     progressr,
     randomForest
-Remotes: BiocManager::impute
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
