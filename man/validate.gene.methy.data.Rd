@@ -23,8 +23,8 @@ validate.gene.methy.data(gene.methy.data, models, prop.missing.cutoff = 0.3)
 }
 \description{
 Check whether \code{gene.methy.data} contains all genes required by \code{models} and that there is an acceptable level of missingness for each required gene.
-Note that genes with acceptable levels of missing values are later imputed using KNN imputation when calling \link{features.predict}.
-If you'd rather use a different imputation method, then make sure to impute missing values before calling \link{features.predict}.
+Note that genes with acceptable levels of missing values are later imputed using KNN imputation when calling \link{predict.features}.
+If you'd rather use a different imputation method, then make sure to impute missing values before calling \link{predict.features}.
 }
 \examples{
 data('all.models');

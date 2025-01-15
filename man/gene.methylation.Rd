@@ -16,6 +16,6 @@ Calculate gene-level methylation for a dataset containing CpGs from the Illumina
 Gene-level methylation is calculated as the median beta-value among CpG islands in the gene promoter region.
 }
 \examples{
-data(example.data);
-example.data.gene.methy <- gene.methylation(example.data);
+#data(example.data);
+#example.data.gene.methy <- gene.methylation(example.data);
 }

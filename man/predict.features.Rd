@@ -28,5 +28,5 @@ check <- validate.gene.methy.data(example.data.gene.methy, all.models);
 stopifnot(check$val.passed);
 
 features <- predict.features(example.data.gene.methy, all.models);
-features;
+str(features);
 }
