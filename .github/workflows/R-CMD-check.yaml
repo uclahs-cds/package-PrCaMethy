@@ -40,6 +40,7 @@ jobs:
       # Step 5: Install R dependencies (including Bioconductor)
       - name: Install R dependencies
         run: |
+          Rscript -e "install.packages('remotes', repos = 'https://cloud.r-project.org')"
           Rscript -e "install.packages('BiocManager', repos = 'https://cloud.r-project.org')"
           Rscript -e "BiocManager::install(update = TRUE, ask = FALSE)"
           Rscript -e "remotes::install_deps(dependencies = TRUE)"
