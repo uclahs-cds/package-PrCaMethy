@@ -7,10 +7,10 @@ rm(list = ls());
 source('cpg.annotation.R');
 rm(list = ls());
 
-source('example.data.R');
+source('gene.promoter.cpgi.R');
 rm(list = ls());
 
-source('gene.promoter.cpgi.R');
+source('example.data.R');
 rm(list = ls());
 
 source('example.data.gene.methy.R');
