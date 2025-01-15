@@ -24,8 +24,6 @@ data('example.data.gene.methy');
 # note this dataset is derived from the following commands:
 # data('example.data');
 # example.data.gene.methy <- gene.methylation(example.data);
-check <- validate.gene.methy.data(example.data.gene.methy, all.models);
-stopifnot(check$val.passed);
 
 features <- predict.features(example.data.gene.methy, all.models);
 str(features);

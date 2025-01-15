@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repository with Git LFS
+      # Step 1: Checkout repository
       - name: Checkout code
         uses: actions/checkout@v3
 
