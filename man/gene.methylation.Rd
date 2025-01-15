@@ -17,5 +17,12 @@ Gene-level methylation is calculated as the median beta-value among CpG islands 
 }
 \examples{
 data(example.data);
+
+### full example (may take a few mins to run)
+#example.data.gene.methy <- gene.methylation(example.data);
+
+### fast example
+set.seed(123);
+example.data <- example.data[,sample(1:ncol(example.data), 10)];
 example.data.gene.methy <- gene.methylation(example.data);
 }

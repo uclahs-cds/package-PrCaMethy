@@ -7,7 +7,7 @@
 Example dataset of TCGA-PRAD patients with gene-level prostate cancer DNA methylation data.  The columns contain the median beta-value among CpG islands in the gene promoter region.
 See \link{gene.methylation} for an example showing how to calculate gene-level methylation data.}
 \format{
-An object of class \code{data.frame} with 5 rows and 13952 columns.
+An object of class \code{data.frame} with 10 rows and 13622 columns.
 }
 \usage{
 example.data.gene.methy

@@ -5,12 +5,12 @@
 \alias{all.models}
 \title{all.models}
 \format{
-An object of class \code{list} of length 2.
+An object of class \code{list} of length 16.
 }
 \usage{
 all.models
 }
 \description{
-Models fit using \link[caret]{train} for predicting various clinical and molecular features of patients diagnosed with prostate cancer.
+Random forest models for predicting various clinical and molecular features of patients diagnosed with prostate cancer.
 }
 \keyword{datasets}

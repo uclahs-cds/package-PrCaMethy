@@ -1,11 +1,11 @@
-#res.date <- '2024-12-13';
-#res.date <- '2025-01-07'; # includes knn imputation
-res.date <- '2025-01-08'; # includes knn imputation + xyinterface + max 5000 features
-compress <- 'xz';
-test.mode <- TRUE;
+res.date <- '2025-01-13';
 
-path.ml.res <- paste0('/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/output/prediction/', res.date, '_F72-predict-clinical-and-drivers_gene-methy_association-filter_discrete-methyFALSE.RData');
-tolerance <- 0.03 # use smallest model within __ of best model
+discrete.methy <- FALSE;
+compress <- 'xz';
+test.mode <- FALSE;
+
+path.ml.res <- paste0('/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/output/prediction/', res.date, '_F72-predict-clinical-and-drivers_gene-methy_association-filter_discrete-methy', discrete.methy, '.RData');
+tolerance <- 0.02 # use smallest model within __ of best model
 
 load(path.ml.res);
 
@@ -18,6 +18,42 @@ if (test.mode) {
     example.models.index <- c(1,4);
     }
 
+####
+reduce.glmnet.memory <- function(glmnet.fit, lambda.opt) {
+    # Identify the index of the optimal lambda
+    lambda.idx <- which(glmnet.fit$lambda == lambda.opt);
+    if (length(lambda.idx) == 0) {
+        stop('The specified lambda value is not in the glmnet fit object.')
+        }
+
+    # Check if the model is multinomial
+    is.multinomial <- is.list(glmnet.fit$beta);
+
+    if (is.multinomial) {
+    # Multinomial case: beta is a list of matrices (one for each class)
+    glmnet.fit$beta <- lapply(
+        X = glmnet.fit$beta,
+        FUN = function(beta.matrix) {
+            # Zero out coefficients for non-optimal lambdas
+            beta.matrix[, -lambda.idx] <- 0
+            beta.matrix
+            }
+        );
+    glmnet.fit$a0 <- glmnet.fit$a0;  # Keep intercepts intact for all lambdas
+    } else {
+        # Standard case: beta is a single matrix
+        beta.matrix <- glmnet.fit$beta;
+        beta.matrix[, -lambda.idx] <- 0;  # Zero out non-optimal lambda columns
+        glmnet.fit$beta <- beta.matrix;
+        glmnet.fit$a0 <- glmnet.fit$a0;  # Keep intercepts intact for all lambdas
+        }
+
+    return(glmnet.fit)
+    }
+####
+
+# devtools::load_all();
+# data(example.data.gene.methy);
 models <- lapply(
     X = seq_along(outcomes),
     FUN = function(x) {
@@ -49,11 +85,38 @@ models <- lapply(
 
         load(file);
 
-
         if (res$model == 'glmnet') {
-            model <- fit.glmnet;
+            model <- fit.glmnet$finalModel2;
+            lam <- fit.glmnet$bestTune$lambda;
+            xnames <- fit.glmnet$finalModel$xNames;
+
+            ### reduce glmnet model size
+            model.red <- reduce.glmnet.memory(model, lam);
+            # stopifnot(all(xnames %in% colnames(example.data.gene.methy)));
+
+            # newx <- as.matrix(example.data.gene.methy[, xnames]);
+            # stopifnot(sum(is.na(newx)) == 0)
+
+            # pred.red <- predict(
+            #     object = model.red,
+            #     newx = newx,
+            #     s = lam,
+            #     type = 'response'
+            #     );
+            # pred.full <- predict(
+            #     object = model,
+            #     newx = newx,
+            #     s = lam,
+            #     type = 'response'
+            #     );
+            # stopifnot(identical(pred.red, pred.full))
+            # format(object.size(model), 'Mb');
+            # format(object.size(model.red), 'Mb');
+            model <- model.red;
+            model$best.lambda <- lam;
+            model$xNames <- xnames;
         } else {
-            model <- fit.rf
+            model <- fit.rf$finalModel;
             }
         #print(format(object.size(model), 'Mb'));
         #lapply(model, function(x) format(object.size(x), 'Mb'))
@@ -64,6 +127,12 @@ models <- lapply(
         return(model);
         }
     );
+
+model.size <- sapply(models, function(x) format(object.size(x), 'Mb'));
+model.size <- as.numeric(gsub(' Mb', '', model.size));
+max(model.size);
+median(model.size);
+
 
 # fix outcome names
 outcomes[outcomes == 'log2.psa.continuous'] <- 'log2p1.psa.continuous';
@@ -82,9 +151,9 @@ print(format(object.size(models), 'Mb'));
 all.models <- models;
 usethis::use_data(all.models, overwrite = TRUE, compress = compress);
 
-# smaller example models for examples/testing
-lapply(all.models, function(x) format(object.size(x), 'Mb'));
+# # smaller example models for examples/testing
+# lapply(all.models, function(x) format(object.size(x), 'Mb'));
 
-example.models <- all.models[example.models.index];
-format(object.size(example.models), 'Mb');
-usethis::use_data(example.models, overwrite = TRUE, compress = compress);
+# example.models <- all.models[example.models.index];
+# format(object.size(example.models), 'Mb');
+# usethis::use_data(example.models, overwrite = TRUE, compress = compress);

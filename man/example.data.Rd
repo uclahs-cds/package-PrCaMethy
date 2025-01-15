@@ -5,7 +5,7 @@
 \alias{example.data}
 \title{example.data}
 \format{
-An object of class \code{data.frame} with 5 rows and 409472 columns.
+An object of class \code{data.frame} with 10 rows and 98475 columns.
 }
 \usage{
 example.data

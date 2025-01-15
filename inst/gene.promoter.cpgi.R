@@ -1,7 +1,14 @@
+devtools::load_all();
+
 data(cpg.annotation);
-data(example.data);
-methy <- example.data; # methylation data with patient ids as rownames, CpGs as columns
+#data(example.data);
+#methy <- example.data; # methylation data with patient ids as rownames, CpGs as columns
+path.data <- '/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/data/2024-07-16_pooled_tumour_normal_all_cpgs_all_cohorts.rds';
+methy <- readRDS(path.data);
 print.progress <- TRUE;
+methy.cpgs <- colnames(methy)[grep('^cg', colnames(methy))];
+methy <- NULL;
+gc();
 
 # subset to CpG islands in gene promoter region
 cpg.annotation <- subset(cpg.annotation, subset = genomic.location == 'Promoter' & !is.na(UCSC_RefGene_Name) & Relation_to_Island == 'Island');
@@ -31,7 +38,7 @@ progressr::handlers(list(
         if (x %% 100 == 0) {
             print(x);
             }
-        return(cpgs[cpgs %in% colnames(methy)]);
+        return(cpgs[cpgs %in% methy.cpgs]);
         }
     );
     # },
@@ -40,4 +47,18 @@ progressr::handlers(list(
 stopifnot(length(gene.promoter.cpgi) == length(genes));
 names(gene.promoter.cpgi) <- genes;
 
-usethis::use_data(gene.promoter.cpgi, overwrite = TRUE);
+check.genes <- c('MIR572', 'WSB2', 'GSTM1', 'TIAM2');
+stopifnot(all(check.genes %in% names(gene.promoter.cpgi)));
+check.genes.cpgs <- sapply(gene.promoter.cpgi[check.genes], function(x) length(x) > 0);
+stopifnot(all(check.genes.cpgs));
+
+# replace all '-' with '.' in gene names
+check <- grepl('-', names(gene.promoter.cpgi));
+table(check);
+names(gene.promoter.cpgi)[check];
+names(gene.promoter.cpgi) <- gsub('-', '.', names(gene.promoter.cpgi));
+
+usethis::use_data(gene.promoter.cpgi, overwrite = TRUE, compress = 'xz');
+
+# no longer need cpg.annotation.  Delete since takes up too much memory.
+file.remove('../data/cpg.annotation.rda');

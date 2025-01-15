@@ -17,8 +17,6 @@ jobs:
       # Step 1: Checkout repository with Git LFS
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          lfs: true  # Enable Git LFS
 
       # Step 2: Set up R environment
       - name: Set up R
@@ -39,11 +37,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev pandoc qpdf
 
-      # Step 5: Install R dependencies and rcmdcheck
+      # Step 5: Install R dependencies (including Bioconductor)
       - name: Install R dependencies
         run: |
           Rscript -e "install.packages('remotes', repos = 'https://cloud.r-project.org')"
           Rscript -e "install.packages('rcmdcheck', repos = 'https://cloud.r-project.org')"
+          Rscript -e "if (!requireNamespace('BiocManager', quietly = TRUE)) install.packages('BiocManager', repos = 'https://cloud.r-project.org')"
+          Rscript -e "BiocManager::install(update = TRUE, ask = FALSE)"
+          Rscript -e "BiocManager::install('impute')"
           Rscript -e "remotes::install_deps(dependencies = TRUE)"
 
       # Step 6: Install TinyTeX (optional, for LaTeX-based vignettes)
