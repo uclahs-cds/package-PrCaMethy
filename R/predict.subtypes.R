@@ -38,7 +38,11 @@ predict.subtypes <- function(methy.data, prop.missing.cutoff = 0.3, impute.using
         threshold = 0
         );
     stopifnot(length(subtypes) == ncol(methy.data.imp.sub));
-    subtypes <- data.frame(subtype = subtypes, patient.id = colnames(methy.data.imp.sub));
+    subtypes <- data.frame(
+        patient.id = colnames(methy.data.imp.sub),
+        subtype = subtypes,
+        check.names = FALSE
+        );
 
     return(subtypes);
     }
