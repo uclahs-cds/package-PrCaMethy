@@ -6,13 +6,28 @@
 #' @param methy methylation dataset where rownames give patient ids and columns use CpG ids
 #' @param print.progress TRUE/FALSE to show progress bar
 #' @export
+#' @importFrom stats median predict
+#' @importFrom utils data
 #' @examples
 #'data(example.data);
+#'
+#'### full example (may take a few mins to run)
+#'#example.data.gene.methy <- gene.methylation(example.data);
+#'
+#'### fast example
+#'set.seed(123);
+#'example.data <- example.data[,sample(1:ncol(example.data), 10)];
 #'example.data.gene.methy <- gene.methylation(example.data);
 gene.methylation <- function(methy, print.progress = TRUE) {
     data(gene.promoter.cpgi);
 
     methy <- methy[,colnames(methy) %in% unlist(gene.promoter.cpgi)];
+
+    # only keep elements in the list gene.promoter.cpgi that contain CpGs in the methy dataset
+    gene.promoter.cpgi <- gene.promoter.cpgi[sapply(gene.promoter.cpgi, function(x) any(x %in% colnames(methy)))];
+    if (length(gene.promoter.cpgi) == 0) {
+        stop('Error: no CpG islands in the gene promoter regions are present in the methy dataset');
+        }
 
     gene.promoter.methy <- data.frame(matrix(NA, nrow = nrow(methy), ncol = length(gene.promoter.cpgi)));
     rownames(gene.promoter.methy) <- rownames(methy);
