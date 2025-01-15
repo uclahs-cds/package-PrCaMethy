@@ -19,7 +19,7 @@
 #'example.data <- example.data[,sample(1:ncol(example.data), 10)];
 #'example.data.gene.methy <- gene.methylation(example.data);
 gene.methylation <- function(methy, print.progress = TRUE) {
-    data(gene.promoter.cpgi);
+    data(gene.promoter.cpgi, envir = environment());
 
     methy <- methy[,colnames(methy) %in% unlist(gene.promoter.cpgi)];
 

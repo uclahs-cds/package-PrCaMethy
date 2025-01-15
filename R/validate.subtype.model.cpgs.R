@@ -24,7 +24,7 @@
 #'# CpGs that are required and have a proportion of missing values greater than `prop.missing.cutoff`
 #' #check$required.cpgs.with.high.missing;
 validate.subtype.model.cpgs <- function(methy.data, prop.missing.cutoff = 0.3) {
-    data('subtype.model');
+    data(subtype.model, envir = environment());
     required.cpgs <- rownames(subtype.model$centroids);
     missing.cpgs <- setdiff(required.cpgs, colnames(methy.data));
     nonmissing.cpgs <- setdiff(required.cpgs, missing.cpgs);
