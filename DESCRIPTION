@@ -7,7 +7,7 @@ Maintainer: Jaron Arbet <jarbet@mednet.ucla.edu>
 Description: Resources for predicting clinical and molecular features using prostate cancer DNA methylation data generated from the Illumina 450K array.
 Authors@R: c(
     person("Jaron Arbet", role = c("aut", "cre"), email = "jarbet@mednet.ucla.edu"),
-    person("Paul Boutros", role = "aut"))
+    person("Paul C. Boutros", role = "aut"))
 Depends:
     R (>= 2.10)
 Imports:
