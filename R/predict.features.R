@@ -3,6 +3,10 @@
 #' Main function used to predict various clinical and molecular features from gene-level methylation data in prostate cancer patients.
 #' @inheritParams validate.gene.methy.data
 #' @export "predict.features"
+#' @return
+#' A list with the following objects:
+#' * `features` a data frame with predicted features as columns and patients as rows
+#' * `validation` results from validation checks telling you which features you were able to predict.  See \link{validate.gene.methy.data} for more details.
 #' @examples
 #'data('all.models');
 #'
@@ -16,13 +20,20 @@
 #'str(features);
 predict.features <- function(gene.methy.data, models, prop.missing.cutoff = 0.3) {
     check <- validate.gene.methy.data(gene.methy.data, models, prop.missing.cutoff);
-    if (!check$val.passed) {
-        print('Error: gene.methy.data has genes with high missingness that are required for predicting features.  See the returned results for more details.')
+    if (all(check$features.you.can.predict == FALSE)) {
+        print('Error: gene.methy.data does not have the required genes (with an an acceptable level of missing data, i.e. proportion missing < prop.missing.cutoff) for any of the features. See returned output for more info.')
         return(check);
         }
+    if (any(check$features.you.can.predict == FALSE)) {
+        stopifnot(all(names(check$features.you.can.predict) == names(models)));
+        models <- models[names(check$features.you.can.predict)[which(check$features.you.can.predict)]];
+        print('Warning: gene.methy.data does not have the required genes (with an an acceptable level of missing data, i.e. proportion missing < prop.missing.cutoff) for some of the features. see $validation output for more info.')
+        }
     # impute missing values
-    gene.methy.data.imp <- impute::impute.knn(t(gene.methy.data))$data;
+    print('Starting imputation...');
+    base::invisible(utils::capture.output(gene.methy.data.imp <- impute::impute.knn(t(gene.methy.data))$data));
     gene.methy.data.imp <- data.frame(t(gene.methy.data.imp), check.names = FALSE);
+    print('Finished imputation.')
     #pred.rf <- utils::getS3method('predict', 'randomForest');
     #pred.glmnet <- utils::getS3method('predict', 'glmnet');
     #pred.lognet <- utils::getS3method('predict', 'lognet');
@@ -35,7 +46,7 @@ predict.features <- function(gene.methy.data, models, prop.missing.cutoff = 0.3)
         X = seq_along(models),
         FUN = function(x) {
             m <- models[[x]];
-            print(names(models)[x]);
+            #print(names(models)[x]);
             temp <- gene.methy.data.imp[,m$xNames];
             if (inherits(m, 'randomForest')) {
                 pred <- data.frame(predict(m, newdata = temp, type = 'response'), check.names = FALSE);
@@ -83,5 +94,5 @@ predict.features <- function(gene.methy.data, models, prop.missing.cutoff = 0.3)
     stopifnot(all(check));
     features <- do.call(data.frame, features);
     stopifnot(all(rownames(features) == rownames(gene.methy.data.imp)));
-    return(features);
+    return(list(features = features, validation = check));
     }

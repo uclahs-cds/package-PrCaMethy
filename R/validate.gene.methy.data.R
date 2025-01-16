@@ -10,6 +10,7 @@
 #' @export
 #' @return
 #' * `val.passed` a logical indicating whether the data passed validation
+#' * `features.you.can.predict` logical vector indicating which features you can predict (i.e. you have the required genes with missing data rates < prop.missing.cutoff)
 #' * `required.genes` a list of genes required by each model
 #' * `missing.genes` a list of genes that are required but completely missing in the data
 #' * `required.genes.with.high.missing` a list of genes that are required and have a proportion of missing values greater than `prop.missing.cutoff`
@@ -67,8 +68,10 @@ validate.gene.methy.data <- function(gene.methy.data, models, prop.missing.cutof
     required.genes.with.high.missing <- lapply(required.genes.prop.missing, function(x) x[x > prop.missing.cutoff]);
     missing.genes <- lapply(required.genes, function(x) setdiff(x, colnames(gene.methy.data)));
     val.passed <- length(unlist(required.genes.with.high.missing )) == 0 & length(unlist(missing.genes)) == 0;
+    features.you.can.predict <- sapply(required.genes.with.high.missing, function(x) length(x) == 0);
     return(list(
         val.passed = val.passed,
+        features.you.can.predict = features.you.can.predict,
         required.genes = required.genes,
         missing.genes = missing.genes,
         required.genes.with.high.missing = required.genes.with.high.missing

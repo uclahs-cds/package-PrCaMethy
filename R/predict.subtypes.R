@@ -20,11 +20,13 @@ predict.subtypes <- function(methy.data, prop.missing.cutoff = 0.3, impute.using
         return(check);
         }
     # impute missing values
+    print('Starting imputation...');
     if (!impute.using.all.cpgs) {
         methy.data <- methy.data[,check$required.cpgs, drop = FALSE];
         }
-    methy.data.imp <- impute::impute.knn(t(methy.data))$data;
+    base::invisible(utils::capture.output(methy.data.imp <- impute::impute.knn(t(methy.data))$data));
     methy.data.imp <- data.frame(t(methy.data.imp), check.names = FALSE);
+    print('Finished imputation.')
 
     # requireNamespace in order to get predict() S3 methods to work correctly
     #requireNamespace('pamr', quietly = TRUE);
@@ -39,10 +41,10 @@ predict.subtypes <- function(methy.data, prop.missing.cutoff = 0.3, impute.using
         );
     stopifnot(length(subtypes) == ncol(methy.data.imp.sub));
     subtypes <- data.frame(
-        patient.id = colnames(methy.data.imp.sub),
         subtype = subtypes,
         check.names = FALSE
         );
+    rownames(subtypes) <- colnames(methy.data.imp.sub);
 
     return(subtypes);
     }
