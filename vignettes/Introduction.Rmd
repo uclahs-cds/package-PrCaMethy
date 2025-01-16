@@ -12,6 +12,8 @@ vignette: >
   %\VignetteIndexEntry{Introduction}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+pkgdown:
+  as_is: true
 ---
 
 ```{r setup}
@@ -129,7 +131,7 @@ check <- validate.gene.methy.data(
 ```
 
 * `check$val.passed` is a boolean vector indicating whether you have the required genes to predict all features.
-* `features.you.can.predict` logical vector indicating which features you can predict (i.e. you have the required genes with missing data rates < `prop.missing.cutoff`)
+* `check$features.you.can.predict` logical vector indicating which features you can predict (i.e. you have the required genes with missing data rates < `prop.missing.cutoff`)
 * `check$required.genes` is a list of required genes for predicting each feature.
 * `check$missing.genes` is a list of missing genes that are required for predicting each feature.
 * `check$required.genes.with.high.missing` is a list of genes that you have but that have high missing data (i.e. proportion of missing data exceeds the cutoff to argument `prop.missing.cutoff`, default = 0.3)
