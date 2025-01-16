@@ -1,26 +1,15 @@
-# Project/Repo Title
+# PrCaMethy
 
-Template Repository for the Boutros Lab R package repos. Describe a simple overview of use/purpose here.
+The `PrCaMethy` package offers tools for predicting clinical and molecular features using prostate cancer DNA methylation data generated from the Illumina 450K array.
 
-## How to Use This Template
-
-- Replace all placeholder text in the sections below.
-
-- Update metadata.yaml and DESCRIPTION with your project title, contributors, etc.
-
-- Replace all occurrences of `BoutrosLabTemplate` in .github/workflows/R-CMD-check.yaml with your project title (same as title in in DESCRIPTION).
-
-## Description
-
-An in-depth paragraph about your project and overview of use.
+For a tutorial, see the Introduction vignette/article.
 
 ## License
 
-Author: Name1(username1@mednet.ucla.edu), Name2(username2@mednet.ucla.edu)
+Author: Jaron Arbet(jarbet@mednet.ucla.edu), Paul C. Boutros
 
-[This project] is licensed under the GNU General Public License version 2. See the file LICENSE.md for the terms of the GNU GPL license.
+This program is licensed under the GNU General Public License version 2. See the file LICENSE.md for the terms of the GNU GPL license.
 
-<one line to give the project/program's name and a brief idea of what it does.>
 
 Copyright (C) 2021 University of California Los Angeles ("Boutros Lab") All rights reserved.
 
