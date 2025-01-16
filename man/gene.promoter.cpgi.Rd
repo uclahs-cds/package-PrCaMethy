@@ -3,7 +3,7 @@
 \docType{data}
 \name{gene.promoter.cpgi}
 \alias{gene.promoter.cpgi}
-\title{gene.promoter.cpgi}
+\title{CpG islands in the gene promoter region}
 \format{
 An object of class \code{list} of length 13952.
 }

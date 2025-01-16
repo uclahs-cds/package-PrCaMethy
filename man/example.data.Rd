@@ -3,7 +3,7 @@
 \docType{data}
 \name{example.data}
 \alias{example.data}
-\title{example.data}
+\title{Example CpG methylation dataset}
 \format{
 An object of class \code{data.frame} with 10 rows and 98475 columns.
 }

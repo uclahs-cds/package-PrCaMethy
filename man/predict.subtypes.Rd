@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict.subtypes.R
 \name{predict.subtypes}
 \alias{predict.subtypes}
-\title{predict.subtypes}
+\title{Predict methylation subtype}
 \usage{
 \method{predict}{subtypes}(methy.data, prop.missing.cutoff = 0.3, impute.using.all.cpgs = TRUE)
 }

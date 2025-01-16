@@ -2,7 +2,7 @@
 % Please edit documentation in R/validate.gene.methy.data.R
 \name{validate.gene.methy.data}
 \alias{validate.gene.methy.data}
-\title{validate.gene.methy.data}
+\title{Validate input data for gene.methylation()}
 \usage{
 validate.gene.methy.data(gene.methy.data, models, prop.missing.cutoff = 0.3)
 }
@@ -16,6 +16,7 @@ validate.gene.methy.data(gene.methy.data, models, prop.missing.cutoff = 0.3)
 \value{
 \itemize{
 \item \code{val.passed} a logical indicating whether the data passed validation
+\item \code{features.you.can.predict} logical vector indicating which features you can predict (i.e. you have the required genes with missing data rates < prop.missing.cutoff)
 \item \code{required.genes} a list of genes required by each model
 \item \code{missing.genes} a list of genes that are required but completely missing in the data
 \item \code{required.genes.with.high.missing} a list of genes that are required and have a proportion of missing values greater than \code{prop.missing.cutoff}

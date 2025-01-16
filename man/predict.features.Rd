@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict.features.R
 \name{predict.features}
 \alias{predict.features}
-\title{predict.features}
+\title{Predict clinical and molecular features}
 \usage{
 \method{predict}{features}(gene.methy.data, models, prop.missing.cutoff = 0.3)
 }
@@ -12,6 +12,13 @@
 \item{models}{A list of models used to predict features from gene-level methylation data.  The models should come from \code{data('all.models')}.}
 
 \item{prop.missing.cutoff}{The maximum proportion of missing values allowed for each required gene.}
+}
+\value{
+A list with the following objects:
+\itemize{
+\item \code{features} a data frame with predicted features as columns and patients as rows
+\item \code{validation} results from validation checks telling you which features you were able to predict.  See \link{validate.gene.methy.data} for more details.
+}
 }
 \description{
 Main function used to predict various clinical and molecular features from gene-level methylation data in prostate cancer patients.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/gene.methylation.R
 \name{gene.methylation}
 \alias{gene.methylation}
-\title{gene.methylation}
+\title{Gene-level methylation}
 \usage{
 gene.methylation(methy, print.progress = TRUE)
 }

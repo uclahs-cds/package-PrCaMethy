@@ -2,7 +2,7 @@
 % Please edit documentation in R/validate.subtype.model.cpgs.R
 \name{validate.subtype.model.cpgs}
 \alias{validate.subtype.model.cpgs}
-\title{validate.subtype.model.cpgs}
+\title{Validate input data for predict.subtypes()}
 \usage{
 validate.subtype.model.cpgs(methy.data, prop.missing.cutoff = 0.3)
 }
@@ -14,6 +14,7 @@ validate.subtype.model.cpgs(methy.data, prop.missing.cutoff = 0.3)
 \value{
 \itemize{
 \item \code{val.passed} a logical indicating whether the data passed validation
+\item \code{check$required.cpgs} a vector of CpG ids that are required for predicting the subtypes
 \item \code{missing.cpgs} a vector of CpG ids that are required but completely missing in the data
 \item \code{required.cpgs.with.high.missing} a vector of CpG ids that are required and have a proportion of missing values greater than \code{prop.missing.cutoff}
 }
