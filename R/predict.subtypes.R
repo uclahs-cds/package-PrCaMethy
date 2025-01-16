@@ -1,4 +1,4 @@
-#' predict.subtypes
+#' Predict methylation subtype
 #'
 #' Assign patients to four prostate cancer DNA methylation subtypes
 #'

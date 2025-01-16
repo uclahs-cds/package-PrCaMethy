@@ -1,4 +1,4 @@
-#' validate.gene.methy.data
+#' Validate input data for gene.methylation()
 #'
 #' Check whether `gene.methy.data` contains all genes required by `models` and that there is an acceptable level of missingness for each required gene.
 #' Note that genes with acceptable levels of missing values are later imputed using KNN imputation when calling \link{predict.features}.

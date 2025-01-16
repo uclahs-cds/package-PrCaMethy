@@ -1,4 +1,4 @@
-#' validate.subtype.model.cpgs
+#' Validate input data for predict.subtypes()
 #'
 #' Check whether `methy.data` contains all CpGs required by \link{subtype.model} for assigning patients to four prostate cancer DNA methylation subtypes.
 #'
