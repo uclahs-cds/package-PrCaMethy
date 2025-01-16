@@ -7,6 +7,7 @@
 #' @export
 #' @return
 #' * `val.passed` a logical indicating whether the data passed validation
+#' * `check$required.cpgs` a vector of CpG ids that are required for predicting the subtypes
 #' * `missing.cpgs` a vector of CpG ids that are required but completely missing in the data
 #' * `required.cpgs.with.high.missing` a vector of CpG ids that are required and have a proportion of missing values greater than `prop.missing.cutoff`
 
@@ -24,6 +25,10 @@
 #'# CpGs that are required and have a proportion of missing values greater than `prop.missing.cutoff`
 #' #check$required.cpgs.with.high.missing;
 validate.subtype.model.cpgs <- function(methy.data, prop.missing.cutoff = 0.3) {
+    # check whether all values of methy.data data.frame are between 0 and 1:
+    methy.data.nomiss <- na.omit(methy.data);
+    stopifnot('All values of methy.data should be between 0 and 1' = all(methy.data.nomiss >= 0 & methy.data.nomiss <= 1));
+
     data(subtype.model, envir = environment());
     required.cpgs <- rownames(subtype.model$centroids);
     missing.cpgs <- setdiff(required.cpgs, colnames(methy.data));
