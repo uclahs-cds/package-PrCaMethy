@@ -2,7 +2,7 @@
 % Please edit documentation in R/validate.subtype.model.cpgs.R
 \name{validate.subtype.model.cpgs}
 \alias{validate.subtype.model.cpgs}
-\title{Validate input data for predict.subtypes()}
+\title{Validate input data for estimate.subtypes()}
 \usage{
 validate.subtype.model.cpgs(methy.data, prop.missing.cutoff = 0.3)
 }

@@ -26,9 +26,9 @@ The `PrCaMethy` package provides resources for predicting clinical and molecular
 features from prostate cancer DNA methylation data. Here is an overview of this vignette:
 
 * [Input data] explains the required format of the input data (CpG beta-values from the Illumina 450K methylation array)
-* [`predict.subtypes`] assigns patients to one of four prostate cancer DNA methylation subtypes.
+* [`estimate.subtypes`] assigns patients to one of four prostate cancer DNA methylation subtypes.
 * [`gene.methylation`] calculates gene-level methylation
-* [`predict.features`] predicts clinical and molecular features from gene-level methylation data.
+* [`estimate.features`] predicts clinical and molecular features from gene-level methylation data.
 * [Quick start: putting it all together] gives a concise example for how to use the functions of this package.
 
 
@@ -50,10 +50,10 @@ example.data[1:5,1:5];
 
 Notice the patients are in rows (rownames give patient ids) and CpGs are in columns with CpG ids as the column names.
 
-# `predict.subtypes`
+# `estimate.subtypes`
 
 After making sure your methylation dataset is in the correct format (see [Input data]),
-then you can use `predict.subtypes` to assign each patient to one of four prostate cancer DNA methylation subtypes (named 'MS-1' to 'MS-4').  The subtypes are derived in a forthcoming manuscript.
+then you can use `estimate.subtypes` to assign each patient to one of four prostate cancer DNA methylation subtypes (named 'MS-1' to 'MS-4').  The subtypes are derived in a forthcoming manuscript.
 
 First, let's check whether we have the required CpGs for predicting the subtypes:
 
@@ -70,7 +70,7 @@ check$val.passed;
 Given that the validation passed, we have all required CpGs for predicting the subtypes:
 
 ```{r predict subtypes, warning = FALSE}
-subtypes <- predict.subtypes(
+subtypes <- estimate.subtypes(
     methy.data = example.data
     );
 subtypes;
@@ -97,7 +97,7 @@ example.data.gene.methy[1:5,1:5];
 ```
 
 
-# `predict.features`
+# `estimate.features`
 
 Now that we have gene-level methylation data, we can predict several clinical and molecular features.
 The models used to predict these features were derived and validated in a forthcoming manuscript.
@@ -143,7 +143,7 @@ check$val.passed;
 Given that our data passed the validation, this means we can predict all features for our dataset:
 
 ```{r predict features}
-features <- predict.features(
+features <- estimate.features(
     gene.methy.data = example.data.gene.methy,
     models = all.models
     );
@@ -168,7 +168,7 @@ data(example.data, package = 'PrCaMethy');
 example.data[1:5,1:5];
 
 ### predict methylation subtypes
-subtypes <- predict.subtypes(
+subtypes <- estimate.subtypes(
     methy.data = example.data
     );
 table(subtypes$subtype);
@@ -178,7 +178,7 @@ example.data.gene.methy <- gene.methylation(example.data);
 example.data.gene.methy[1:5,1:5];
 
 ### predict clinical and molecular features
-features <- predict.features(
+features <- estimate.features(
     gene.methy.data = example.data.gene.methy,
     models = all.models
     );

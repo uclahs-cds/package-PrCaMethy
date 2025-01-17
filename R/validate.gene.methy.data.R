@@ -1,8 +1,8 @@
 #' Validate input data for gene.methylation()
 #'
 #' Check whether `gene.methy.data` contains all genes required by `models` and that there is an acceptable level of missingness for each required gene.
-#' Note that genes with acceptable levels of missing values are later imputed using KNN imputation when calling \link{predict.features}.
-#' If you'd rather use a different imputation method, then make sure to impute missing values before calling \link{predict.features}.
+#' Note that genes with acceptable levels of missing values are later imputed using KNN imputation when calling \link{estimate.features}.
+#' If you'd rather use a different imputation method, then make sure to impute missing values before calling \link{estimate.features}.
 #'
 #' @param gene.methy.data A data frame with gene-level methylation data, created by \link{gene.methylation}.  Patients are rows and columns are genes.
 #' @param models A list of models used to predict features from gene-level methylation data.  The models should come from `data('all.models')`.

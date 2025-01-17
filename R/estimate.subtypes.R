@@ -1,19 +1,17 @@
-#' Predict methylation subtype
-#'
-#' Assign patients to four prostate cancer DNA methylation subtypes
-#'
+#' @title Predict methylation subtype
+#' @description Assign patients to four prostate cancer DNA methylation subtypes
 #' @inheritParams validate.subtype.model.cpgs
 #' @param impute.using.all.cpgs TRUE/FALSE indicating whether to impute missing values using all CpGs in `methy.data` or only the CpGs required by \link{subtype.model}.  When TRUE, imputation will be slower and use more memory, but should be more accurate.
-#' @export "predict.subtypes"
+#' @export
 #' @examples
 #'data('subtype.model');
 #'
 #'### example CpG data
 #'data('example.data');
 #'
-#'subtypes <- predict.subtypes(example.data);
+#'subtypes <- estimate.subtypes(example.data);
 #'head(subtypes);
-predict.subtypes <- function(methy.data, prop.missing.cutoff = 0.3, impute.using.all.cpgs = TRUE) {
+estimate.subtypes <- function(methy.data, prop.missing.cutoff = 0.3, impute.using.all.cpgs = TRUE) {
     check <- validate.subtype.model.cpgs(methy.data, prop.missing.cutoff);
     if (!check$val.passed) {
         print('Error: methy.data has CpGs with high missingness that are required for predicting subtypes.  See the returned results for more details.')
