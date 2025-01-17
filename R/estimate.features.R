@@ -1,8 +1,8 @@
-#' predict.features
+#' Predict clinical and molecular features
 #'
 #' Main function used to predict various clinical and molecular features from gene-level methylation data in prostate cancer patients.
 #' @inheritParams validate.gene.methy.data
-#' @export "predict.features"
+#' @export
 #' @return
 #' A list with the following objects:
 #' * `features` a data frame with predicted features as columns and patients as rows
@@ -16,9 +16,9 @@
 #'# data('example.data');
 #'# example.data.gene.methy <- gene.methylation(example.data);
 #'
-#'features <- predict.features(example.data.gene.methy, all.models);
+#'features <- estimate.features(example.data.gene.methy, all.models);
 #'str(features);
-predict.features <- function(gene.methy.data, models, prop.missing.cutoff = 0.3) {
+estimate.features <- function(gene.methy.data, models, prop.missing.cutoff = 0.3) {
     check <- validate.gene.methy.data(gene.methy.data, models, prop.missing.cutoff);
     if (all(check$features.you.can.predict == FALSE)) {
         print('Error: gene.methy.data does not have the required genes (with an an acceptable level of missing data, i.e. proportion missing < prop.missing.cutoff) for any of the features. See returned output for more info.')

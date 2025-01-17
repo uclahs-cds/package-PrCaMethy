@@ -3,7 +3,7 @@
 \docType{data}
 \name{all.models}
 \alias{all.models}
-\title{all.models}
+\title{Models for predicting clinical and molecular features}
 \format{
 An object of class \code{list} of length 16.
 }
@@ -11,6 +11,6 @@ An object of class \code{list} of length 16.
 all.models
 }
 \description{
-Random forest models for predicting various clinical and molecular features of patients diagnosed with prostate cancer.
+\href{https://cran.r-project.org/web/packages/randomForest/index.html}{Random forest} and \href{https://cran.r-project.org/web/packages/glmnet/index.html}{glmnet} models for predicting various clinical and molecular features of patients diagnosed with prostate cancer.
 }
 \keyword{datasets}

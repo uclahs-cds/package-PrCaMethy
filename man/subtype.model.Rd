@@ -3,7 +3,7 @@
 \docType{data}
 \name{subtype.model}
 \alias{subtype.model}
-\title{subtype.model}
+\title{Model for predicting methylation subtype}
 \format{
 An object of class \code{pamrtrained} of length 23.
 }
