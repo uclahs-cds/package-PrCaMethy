@@ -1,5 +1,5 @@
 test_that(
-    desc = 'check predictions',
+    desc = 'check predicted subtypes',
     code = {
         data(subtype.model);
         required.cpgs <- rownames(subtype.model$centroids);
@@ -11,7 +11,6 @@ test_that(
 
         # estimate.subtypes should be able to handle missing data
         expect_true(sum(is.na(example.data)) > 0);
-
 
         subtypes <- estimate.subtypes(example.data);
 

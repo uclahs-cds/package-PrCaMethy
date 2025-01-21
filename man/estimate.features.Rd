@@ -4,7 +4,12 @@
 \alias{estimate.features}
 \title{Predict clinical and molecular features}
 \usage{
-estimate.features(gene.methy.data, models, prop.missing.cutoff = 0.3)
+estimate.features(
+  gene.methy.data,
+  models,
+  prop.missing.cutoff = 0.3,
+  validate.data = TRUE
+)
 }
 \arguments{
 \item{gene.methy.data}{A data frame with gene-level methylation data, created by \link{gene.methylation}.  Patients are rows and columns are genes.}
