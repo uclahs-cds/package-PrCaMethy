@@ -2,7 +2,7 @@
 #'
 #' Main function used to predict various clinical and molecular features from gene-level methylation data in prostate cancer patients.
 #' @inheritParams validate.gene.methy.data
-#' @validate.data TRUE/FALSE, whether to validate input data.  This should generally always be TRUE, but developers may set to FALSE to speedup testing/development.
+#' @param validate.data TRUE/FALSE, whether to validate input data.  This should generally always be TRUE, but developers may set to FALSE to speedup testing/development.
 #' @export
 #' @return
 #' A list with the following objects:

@@ -17,6 +17,8 @@ estimate.features(
 \item{models}{A list of models used to predict features from gene-level methylation data.  The models should come from \code{data('all.models')}.}
 
 \item{prop.missing.cutoff}{The maximum proportion of missing values allowed for each required gene.}
+
+\item{validate.data}{TRUE/FALSE, whether to validate input data.  This should generally always be TRUE, but developers may set to FALSE to speedup testing/development.}
 }
 \value{
 A list with the following objects:
