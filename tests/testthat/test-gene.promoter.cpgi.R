@@ -4,7 +4,7 @@ test_that(
         data(example.data.gene.methy);
         data(gene.promoter.cpgi);
         required.genes <- unique(unlist(sapply(all.models, function(x) x$xNames)));
-       
+
         expect_true(all(required.genes %in% names(gene.promoter.cpgi)));
         gene.promoter.cpgi.sub <- gene.promoter.cpgi[required.genes];
         check <- sapply(

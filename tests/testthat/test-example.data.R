@@ -7,7 +7,7 @@ test_that(
             X = example.data,
             FUN = function(x) {
                 x <- na.omit(x);
-                all(x >=0 & x <= 1);
+                all(x >= 0 & x <= 1);
                 }
             );
         expect_true(all(check.num));
@@ -21,11 +21,11 @@ test_that(
         data(example.data);
         data(subtype.model);
         required.cpgs <- rownames(subtype.model$centroids);
-        
+
         expect_true(all(startsWith(required.cpgs, 'cg')));
-        
+
         expect_true(all(required.cpgs %in% colnames(example.data)));
-        
+
         example.data.sub <- example.data[,required.cpgs];
         check.miss <- apply(example.data.sub, 2, function(x) mean(is.na(x)));
         expect_true(all(check.miss <= 0.3));
