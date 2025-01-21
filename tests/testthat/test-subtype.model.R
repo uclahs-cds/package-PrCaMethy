@@ -6,7 +6,7 @@ test_that(
         required.cpgs <- rownames(subtype.model$centroids);
         expect_true(all(startsWith(required.cpgs, 'cg')));
         expect_true(length(required.cpgs) == 5486);
-        
+
         # example predictions
         data(example.data);
         example.data <- example.data[,required.cpgs];

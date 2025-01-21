@@ -25,7 +25,7 @@ test_that(
         # high missing is caught
         set.seed(123);
         genes <- colnames(example.data.gene.methy)[sample(1:ncol(example.data.gene.methy), 10)];
-        for(i in genes) {
+        for (i in genes) {
             example.data.gene.methy[sample(1:nrow(example.data.gene.methy), nrow(example.data.gene.methy) / 2),i] <- NA;
             }
         check3 <- validate.gene.methy.data(
