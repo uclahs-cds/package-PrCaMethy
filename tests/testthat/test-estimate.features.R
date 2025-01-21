@@ -20,7 +20,7 @@ test_that(
             validate.data = FALSE
             )$features;
         expect_true(ncol(features) == 16);
-        
+
         # validate CNA variables
         cna.vars <- colnames(features)[grepl('\\.cna\\.', colnames(features))];
         expect_true(length(cna.vars) == 8);
