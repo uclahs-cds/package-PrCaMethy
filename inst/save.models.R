@@ -147,13 +147,12 @@ names(models) <- outcomes;
 
 print(format(object.size(models), 'Mb'));
 
+# Remove log2.psa.continuous due to potential cohort bias
+# Remove age.categorical since unnecessary, can just use continuous age.
+models <- models[!names(models) %in% c('log2p1.psa.continuous', 'age.categorical')];
+length(models);
+names(models);
+
 # save all models
 all.models <- models;
 usethis::use_data(all.models, overwrite = TRUE, compress = compress);
-
-# # smaller example models for examples/testing
-# lapply(all.models, function(x) format(object.size(x), 'Mb'));
-
-# example.models <- all.models[example.models.index];
-# format(object.size(example.models), 'Mb');
-# usethis::use_data(example.models, overwrite = TRUE, compress = compress);

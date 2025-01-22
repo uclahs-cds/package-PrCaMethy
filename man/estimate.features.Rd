@@ -4,7 +4,12 @@
 \alias{estimate.features}
 \title{Predict clinical and molecular features}
 \usage{
-estimate.features(gene.methy.data, models, prop.missing.cutoff = 0.3)
+estimate.features(
+  gene.methy.data,
+  models,
+  prop.missing.cutoff = 0.3,
+  validate.data = TRUE
+)
 }
 \arguments{
 \item{gene.methy.data}{A data frame with gene-level methylation data, created by \link{gene.methylation}.  Patients are rows and columns are genes.}
@@ -12,6 +17,8 @@ estimate.features(gene.methy.data, models, prop.missing.cutoff = 0.3)
 \item{models}{A list of models used to predict features from gene-level methylation data.  The models should come from \code{data('all.models')}.}
 
 \item{prop.missing.cutoff}{The maximum proportion of missing values allowed for each required gene.}
+
+\item{validate.data}{TRUE/FALSE, whether to validate input data.  This should generally always be TRUE, but developers may set to FALSE to speedup testing/development.}
 }
 \value{
 A list with the following objects:
