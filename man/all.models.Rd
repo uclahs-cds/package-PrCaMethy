@@ -5,7 +5,7 @@
 \alias{all.models}
 \title{Models for predicting clinical and molecular features}
 \format{
-An object of class \code{list} of length 16.
+An object of class \code{list} of length 14.
 }
 \usage{
 all.models
