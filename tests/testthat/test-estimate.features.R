@@ -19,7 +19,7 @@ test_that(
             models = all.models,
             validate.data = FALSE
             )$features;
-        expect_true(ncol(features) == 16);
+        expect_true(ncol(features) == 14);
 
         # validate CNA variables
         cna.vars <- colnames(features)[grepl('\\.cna\\.', colnames(features))];
@@ -36,11 +36,6 @@ test_that(
         expect_true(min(features$age.continuous) > 40);
         expect_true(max(features$age.continuous) < 100);
 
-
-        # log2p1.psa.continuous
-        expect_true(is.numeric(features$log2p1.psa.continuous));
-        expect_true(min(features$log2p1.psa.continuous) > 0);
-
         # ISUP.grade
         expect_true(inherits(features$ISUP.grade, 'factor'));
         expect_true(all(levels(features$ISUP.grade) == paste0('ISUP', 1:5)));
@@ -48,10 +43,6 @@ test_that(
         # t.category
         expect_true(inherits(features$t.category, 'factor'));
         expect_true(all(levels(features$t.category) == paste0('T', 1:4)));
-
-        # age.categorical
-        expect_true(inherits(features$age.categorical, 'factor'));
-        expect_true(all(levels(features$age.categorical) == c('age_lt_50', 'age_50_59', 'age_60_69', 'age_gte_70')));
 
         # psa.categorical
         expect_true(inherits(features$psa.categorical, 'factor'));
