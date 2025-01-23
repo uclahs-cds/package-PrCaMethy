@@ -2,9 +2,9 @@
 #'
 #' [Random forest](https://cran.r-project.org/web/packages/randomForest/index.html) and [glmnet](https://cran.r-project.org/web/packages/glmnet/index.html) models for predicting various clinical and molecular features of patients diagnosed with prostate cancer.
 #' The predictors are gene-level methylation estimated by \link{gene.methylation}.
-#' 
+#'
 #' Models are available for predicting the following features:
-#' 
+#'
 #' * `age.continuous`: patient age in years
 #' * `ISUP.grade`: International Society of Urological Pathology (ISUP) grade risk group (1-5). See [here](https://www.prostate.org.au/testing-and-diagnosis/grading-genetics/your-gleason-score-isup-grade/#:~:text=The%20ISUP%20Grade&text=It%20is%20done%20using%20prostate,the%20corresponding%20ISUP%20Grade%20Group.) for further details.
 #' * `t.category`: TNM tumour category (1-4), measures the size and extent of the primary tumour
@@ -14,13 +14,13 @@
 #' * `log2p1.snvs.per.mbps`: single nucleotide variants (SNVs) per mega-base pairs (Mbps) with a log2(x + 1) transformation.
 #' @examples
 #' data(all.models);
-#' 
+#'
 #' # Models for predicting the following features:
 #' names(all.models);
-#' 
+#'
 #' # Model class per feature, e.g. randomForest or glmnet:
 #' lapply(all.models, class);
-#' 
+#'
 #' # Required genes for predicting each feature:
 #' # lapply(all.models, function(x) x$xNames)
 'all.models'
