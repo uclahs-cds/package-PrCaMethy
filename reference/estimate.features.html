@@ -88,86 +88,22 @@
 <span class="r-in"><span><span class="va">features</span> <span class="op">&lt;-</span> <span class="fu">estimate.features</span><span class="op">(</span><span class="va">example.data.gene.methy</span>, <span class="va">all.models</span><span class="op">)</span>;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Starting imputation..."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Finished imputation."</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">features</span><span class="op">)</span>;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ features  :'data.frame':	10 obs. of  14 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ age.continuous      : num [1:10] 52.6 59.6 61.2 57 56.3 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ISUP.grade          : Factor w/ 5 levels "ISUP1","ISUP2",..: 2 3 2 2 2 2 5 1 2 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ t.category          : Factor w/ 4 levels "T1","T2","T3",..: 2 4 2 3 3 2 3 3 2 3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ psa.categorical     : Factor w/ 3 levels "psa_lt_10","psa_10_19.9",..: 1 1 1 1 1 1 1 1 1 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ pga                 : num [1:10] 10.16 10.58 8.55 28.04 7.23 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ CHD1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ NKX3.1.cna.loss     : Factor w/ 2 levels "Yes","No": 2 1 1 1 1 2 2 1 2 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ MYC.cna.gain        : Factor w/ 2 levels "Yes","No": 2 2 2 1 2 2 1 1 2 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ PTEN.cna.loss       : Factor w/ 2 levels "Yes","No": 2 1 2 1 1 2 2 2 2 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ CDKN1B.cna.loss     : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 1 2 2 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ RB1.cna.loss        : Factor w/ 2 levels "Yes","No": 2 2 1 2 2 1 2 2 1 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ CDH1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ TP53.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ log2p1.snvs.per.mbps: num [1:10] 0.709 0.994 0.857 1.073 0.862 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ validation:List of 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ val.passed                      : logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ features.you.can.predict        : Named logi [1:14] TRUE TRUE TRUE TRUE TRUE TRUE ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "names")= chr [1:14] "age.continuous" "ISUP.grade" "t.category" "psa.categorical" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ required.genes                  :List of 14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ age.continuous      : chr [1:13603] "NIPA2" "CNBP" "DDX55" "MRPS25" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ ISUP.grade          : chr [1:5000] "NIPA2" "CNBP" "DDX55" "MRPS25" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ t.category          : chr [1:5000] "NIPA2" "CNBP" "DDX55" "MRPS25" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ psa.categorical     : chr [1:100] "NIPA2" "CNBP" "DDX55" "MRPS25" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ pga                 : chr [1:5000] "NIPA2" "CNBP" "DDX55" "MRPS25" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ CHD1.cna.loss       : chr [1:1000] "NIPA2" "CNBP" "DDX55" "MRPS25" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ NKX3-1.cna.loss     : chr [1:13603] "NIPA2" "CNBP" "DDX55" "MRPS25" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ MYC.cna.gain        : chr [1:13603] "NIPA2" "CNBP" "DDX55" "MRPS25" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ PTEN.cna.loss       : chr [1:13603] "NIPA2" "CNBP" "DDX55" "MRPS25" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ CDKN1B.cna.loss     : chr [1:5000] "NIPA2" "CNBP" "DDX55" "MRPS25" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ RB1.cna.loss        : chr [1:1000] "NIPA2" "CNBP" "DDX55" "MRPS25" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ CDH1.cna.loss       : chr [1:13603] "NIPA2" "CNBP" "DDX55" "MRPS25" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ TP53.cna.loss       : chr [1:13603] "NIPA2" "CNBP" "DDX55" "MRPS25" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ log2p1.snvs.per.mbps: chr [1:5000] "NIPA2" "CNBP" "DDX55" "MRPS25" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ missing.genes                   :List of 14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ age.continuous      : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ ISUP.grade          : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ t.category          : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ psa.categorical     : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ pga                 : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ CHD1.cna.loss       : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ NKX3-1.cna.loss     : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ MYC.cna.gain        : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ PTEN.cna.loss       : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ CDKN1B.cna.loss     : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ RB1.cna.loss        : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ CDH1.cna.loss       : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ TP53.cna.loss       : chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ log2p1.snvs.per.mbps: chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ required.genes.with.high.missing:List of 14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ age.continuous      : Named num(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ ISUP.grade          : Named num(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ t.category          : Named num(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ psa.categorical     : Named num(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ pga                 : Named num(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ CHD1.cna.loss       : Named num(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ NKX3-1.cna.loss     : Named num(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ MYC.cna.gain        : Named num(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ PTEN.cna.loss       : Named num(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ CDKN1B.cna.loss     : Named num(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ RB1.cna.loss        : Named num(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ CDH1.cna.loss       : Named num(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ TP53.cna.loss       : Named num(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ log2p1.snvs.per.mbps: Named num(0) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "names")= chr(0) </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">features</span><span class="op">$</span><span class="va">features</span><span class="op">)</span>;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	10 obs. of  14 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ age.continuous      : num  52.6 59.6 61.2 57 56.3 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ ISUP.grade          : Factor w/ 5 levels "ISUP1","ISUP2",..: 2 3 2 2 2 2 5 1 2 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ t.category          : Factor w/ 4 levels "T1","T2","T3",..: 2 4 2 3 3 2 3 3 2 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ psa.categorical     : Factor w/ 3 levels "psa_lt_10","psa_10_19.9",..: 1 1 1 1 1 1 1 1 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ pga                 : num  10.16 10.58 8.55 28.04 7.23 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ CHD1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ NKX3.1.cna.loss     : Factor w/ 2 levels "Yes","No": 2 1 1 1 1 2 2 1 2 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ MYC.cna.gain        : Factor w/ 2 levels "Yes","No": 2 2 2 1 2 2 1 1 2 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ PTEN.cna.loss       : Factor w/ 2 levels "Yes","No": 2 1 2 1 1 2 2 2 2 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ CDKN1B.cna.loss     : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 1 2 2 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ RB1.cna.loss        : Factor w/ 2 levels "Yes","No": 2 2 1 2 2 1 2 2 1 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ CDH1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ TP53.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ log2p1.snvs.per.mbps: num  0.709 0.994 0.857 1.073 0.862 ...</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
