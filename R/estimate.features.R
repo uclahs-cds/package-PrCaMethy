@@ -18,7 +18,7 @@
 #'# example.data.gene.methy <- gene.methylation(example.data);
 #'
 #'features <- estimate.features(example.data.gene.methy, all.models);
-#'str(features);
+#'str(features$features);
 estimate.features <- function(gene.methy.data, models, prop.missing.cutoff = 0.3, validate.data = TRUE) {
     if (validate.data) {
         check <- validate.gene.methy.data(gene.methy.data, models, prop.missing.cutoff);

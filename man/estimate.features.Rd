@@ -40,5 +40,5 @@ data('example.data.gene.methy');
 # example.data.gene.methy <- gene.methylation(example.data);
 
 features <- estimate.features(example.data.gene.methy, all.models);
-str(features);
+str(features$features);
 }

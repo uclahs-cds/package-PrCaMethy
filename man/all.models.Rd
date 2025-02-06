@@ -5,12 +5,37 @@
 \alias{all.models}
 \title{Models for predicting clinical and molecular features}
 \format{
-An object of class \code{list} of length 16.
+An object of class \code{list} of length 14.
 }
 \usage{
 all.models
 }
 \description{
 \href{https://cran.r-project.org/web/packages/randomForest/index.html}{Random forest} and \href{https://cran.r-project.org/web/packages/glmnet/index.html}{glmnet} models for predicting various clinical and molecular features of patients diagnosed with prostate cancer.
+The predictors are gene-level methylation estimated by \link{gene.methylation}.
+}
+\details{
+Models are available for predicting the following features:
+\itemize{
+\item \code{age.continuous}: patient age in years
+\item \code{ISUP.grade}: International Society of Urological Pathology (ISUP) grade risk group (1-5). See \href{https://www.prostate.org.au/testing-and-diagnosis/grading-genetics/your-gleason-score-isup-grade/#:~:text=The\%20ISUP\%20Grade&text=It\%20is\%20done\%20using\%20prostate,the\%20corresponding\%20ISUP\%20Grade\%20Group.}{here} for further details.
+\item \code{t.category}: TNM tumour category (1-4), measures the size and extent of the primary tumour
+\item \code{psa.categorical}: Prostate-specific antigen (PSA) category: <= 10, [10, 20), and >= 20 ng/mL.
+\item \code{pga}: percentage of the genome altered was defined as PGA = (base-pair length of all genome regions with gain or loss) / 3.2 billion bases \code{*} 100
+\item \verb{<gene>.cna.<loss/gain>}: features with \code{.cna.} in their name give the gene name and then identify whether there is a copy number loss or gain event.  See the Examples section for the full list of cna features.
+\item \code{log2p1.snvs.per.mbps}: single nucleotide variants (SNVs) per mega-base pairs (Mbps) with a log2(x + 1) transformation.
+}
+}
+\examples{
+data(all.models);
+
+# Models for predicting the following features:
+names(all.models);
+
+# Model class per feature, e.g. randomForest or glmnet:
+lapply(all.models, class);
+
+# Required genes for predicting each feature:
+# lapply(all.models, function(x) x$xNames)
 }
 \keyword{datasets}
