@@ -59,5 +59,6 @@ example.data <- example.data[,cpgs.keep, drop = FALSE];
 
 check2 <- gene.methylation(example.data);
 stopifnot(all(genes %in% colnames(check2)));
+format(object.size(example.data), 'Mb');
 
 usethis::use_data(example.data, overwrite = TRUE, compress = 'xz');

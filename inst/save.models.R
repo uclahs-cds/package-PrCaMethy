@@ -1,21 +1,22 @@
-res.date <- '2025-01-13';
-
-discrete.methy <- FALSE;
 compress <- 'xz';
 test.mode <- FALSE;
 
-path.ml.res <- paste0('/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/output/prediction/', res.date, '_F72-predict-clinical-and-drivers_gene-methy_association-filter_discrete-methy', discrete.methy, '.RData');
-tolerance <- 0.02 # use smallest model within __ of best model
-
+path.ml.res <- '/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/output/prediction/2025-02-05_F72-predict-clinical-and-drivers_gene-methy_association-filter_discrete-methyFALSE_updated.RData';
+path.final.models <- '/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/output/prediction/2025-02-05_PrCaMethy_final_models.rds';
 load(path.ml.res);
+final.models <- readRDS(path.final.models);
+
+# extract date from path.ml.res
+res.date <- gsub('.*/output/prediction/(\\d{4}-\\d{2}-\\d{2}).*', '\\1', path.ml.res);
+res.date;
 
 outcomes <- unique(ml.res.params$outcome);
+# remove continuous psa because of cohort bias and remove categorical age since unnecessary (can just use continuous age)
+outcomes <- outcomes[!outcomes %in% c('log2.psa.continuous', 'age.categorical')];
+stopifnot(length(outcomes) == 14);
 
 if (test.mode) {
-    outcomes <- c('log2.psa.continuous', 't.stage');
-    example.models.index <- 1:2
-} else {
-    example.models.index <- c(1,4);
+    outcomes <- c('age.continuous', 't.stage');
     }
 
 ####
@@ -59,33 +60,24 @@ models <- lapply(
     FUN = function(x) {
         print(x);
         outcome <- outcomes[x];
-        if (outcome %in% res.regr.test$outcome) {
-            res <- res.regr.test[res.regr.test$outcome == outcome,];
-        } else {
-            res <- res.classif.test[res.classif.test$outcome == outcome,];
-            }
-        res <- res[res$metric %in% c('pearson', 'mcc'),];
-        max.est <- res$estimate[which.max(res$estimate)];
-        #res <- res[which.max(res$estimate),];
-        res.tol <- res[res$estimate >= max.est - tolerance,];
+        final.model <- final.models[final.models$outcome == outcome,];
 
-        # use smallest model within tolerance of best model
-        res <- res.tol[which(res.tol$top.features == min(res.tol$top.features, na.rm = TRUE)),];
-        res <- res[which.max(res$estimate),];
+        mod.id <- which(
+            ml.res.params$outcome == outcome &
+            ml.res.params$top.features == final.model$top.features
+            );
 
-        mod.id <- which(ml.res.params$outcome == outcome & ml.res.params$top.features == res$top.features);
-
-        file <- file.path(dirname(path.ml.res), paste0(res.date, '_F72-predict-clinical-and-drivers_discrete-methyFALSE_models-', mod.id, '-', outcome, '-', res$top.features, '.RData'));
+        file <- file.path(dirname(path.ml.res), paste0(res.date, '_F72-predict-clinical-and-drivers_discrete-methyFALSE_models-', mod.id, '-', outcome, '-', final.model$top.features, '.RData'));
 
         if (!file.exists(file)) {
             res.date2 <- as.Date(res.date) - 1;
-            file <- file.path(dirname(path.ml.res), paste0(res.date2, '_F72-predict-clinical-and-drivers_discrete-methyFALSE_models-', mod.id, '-', outcome, '-', res$top.features, '.RData'));
+            file <- file.path(dirname(path.ml.res), paste0(res.date2, '_F72-predict-clinical-and-drivers_discrete-methyFALSE_models-', mod.id, '-', outcome, '-', final.model$top.features, '.RData'));
             }
         stopifnot(file.exists(file));
 
         load(file);
 
-        if (res$model == 'glmnet') {
+        if (final.model$model == 'glmnet') {
             model <- fit.glmnet$finalModel2;
             lam <- fit.glmnet$bestTune$lambda;
             xnames <- fit.glmnet$finalModel$xNames;
@@ -156,3 +148,6 @@ names(models);
 # save all models
 all.models <- models;
 usethis::use_data(all.models, overwrite = TRUE, compress = compress);
+
+table(sapply(all.models, function(x) length(x$xNames)));
+stopifnot(length(all.models) == length(outcomes));
