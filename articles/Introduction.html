@@ -56,7 +56,7 @@
                         <h4 data-toc-skip class="author">Jaron
 Arbet</h4>
             
-            <h4 data-toc-skip class="date">2025-02-06</h4>
+            <h4 data-toc-skip class="date">2025-02-07</h4>
       
 
       <div class="d-none name"><code>Introduction.Rmd</code></div>
@@ -232,18 +232,18 @@ features were derived and validated in a forthcoming manuscript.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">features</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>;</span>
 <span><span class="va">features</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">features</span><span class="op">$</span><span class="va">n.required.genes</span><span class="op">)</span>,<span class="op">]</span>;</span></code></pre></div>
 <pre><code><span><span class="co">##                 feature n.required.genes</span></span>
-<span><span class="co">## 4       psa.categorical              100</span></span>
+<span><span class="co">## 4       psa.categorical               10</span></span>
+<span><span class="co">## 7       NKX3-1.cna.loss               10</span></span>
+<span><span class="co">## 8          MYC.cna.gain               10</span></span>
+<span><span class="co">## 11         RB1.cna.loss               10</span></span>
+<span><span class="co">## 9         PTEN.cna.loss               50</span></span>
+<span><span class="co">## 10      CDKN1B.cna.loss              100</span></span>
+<span><span class="co">## 2            ISUP.grade             1000</span></span>
+<span><span class="co">## 5                   pga             1000</span></span>
 <span><span class="co">## 6         CHD1.cna.loss             1000</span></span>
-<span><span class="co">## 11         RB1.cna.loss             1000</span></span>
-<span><span class="co">## 2            ISUP.grade             5000</span></span>
+<span><span class="co">## 1        age.continuous             5000</span></span>
 <span><span class="co">## 3            t.category             5000</span></span>
-<span><span class="co">## 5                   pga             5000</span></span>
-<span><span class="co">## 10      CDKN1B.cna.loss             5000</span></span>
 <span><span class="co">## 14 log2p1.snvs.per.mbps             5000</span></span>
-<span><span class="co">## 1        age.continuous            13603</span></span>
-<span><span class="co">## 7       NKX3-1.cna.loss            13603</span></span>
-<span><span class="co">## 8          MYC.cna.gain            13603</span></span>
-<span><span class="co">## 9         PTEN.cna.loss            13603</span></span>
 <span><span class="co">## 12        CDH1.cna.loss            13603</span></span>
 <span><span class="co">## 13        TP53.cna.loss            13603</span></span></code></pre>
 <ul>
@@ -297,20 +297,20 @@ all features for our dataset:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">features</span><span class="op">$</span><span class="va">features</span><span class="op">)</span>;</span></code></pre></div>
 <pre><code><span><span class="co">## 'data.frame':    10 obs. of  14 variables:</span></span>
-<span><span class="co">##  $ age.continuous      : num  52.6 59.6 61.2 57 56.3 ...</span></span>
-<span><span class="co">##  $ ISUP.grade          : Factor w/ 5 levels "ISUP1","ISUP2",..: 2 3 2 2 2 2 5 1 2 2</span></span>
+<span><span class="co">##  $ age.continuous      : num  51.9 62 62 60.4 56.2 ...</span></span>
+<span><span class="co">##  $ ISUP.grade          : Factor w/ 5 levels "ISUP1","ISUP2",..: 2 3 2 5 3 2 5 1 2 2</span></span>
 <span><span class="co">##  $ t.category          : Factor w/ 4 levels "T1","T2","T3",..: 2 4 2 3 3 2 3 3 2 3</span></span>
 <span><span class="co">##  $ psa.categorical     : Factor w/ 3 levels "psa_lt_10","psa_10_19.9",..: 1 1 1 1 1 1 1 1 1 1</span></span>
-<span><span class="co">##  $ pga                 : num  10.16 10.58 8.55 28.04 7.23 ...</span></span>
+<span><span class="co">##  $ pga                 : num  9.35 10.13 8.24 27.57 7.33 ...</span></span>
 <span><span class="co">##  $ CHD1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span></span>
 <span><span class="co">##  $ NKX3.1.cna.loss     : Factor w/ 2 levels "Yes","No": 2 1 1 1 1 2 2 1 2 2</span></span>
-<span><span class="co">##  $ MYC.cna.gain        : Factor w/ 2 levels "Yes","No": 2 2 2 1 2 2 1 1 2 2</span></span>
-<span><span class="co">##  $ PTEN.cna.loss       : Factor w/ 2 levels "Yes","No": 2 1 2 1 1 2 2 2 2 2</span></span>
-<span><span class="co">##  $ CDKN1B.cna.loss     : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 1 2 2 2</span></span>
+<span><span class="co">##  $ MYC.cna.gain        : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 1 1 2 2</span></span>
+<span><span class="co">##  $ PTEN.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 1 2 2 2 2 2 2</span></span>
+<span><span class="co">##  $ CDKN1B.cna.loss     : Factor w/ 2 levels "Yes","No": 2 2 2 1 2 2 1 1 2 2</span></span>
 <span><span class="co">##  $ RB1.cna.loss        : Factor w/ 2 levels "Yes","No": 2 2 1 2 2 1 2 2 1 2</span></span>
 <span><span class="co">##  $ CDH1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span></span>
 <span><span class="co">##  $ TP53.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span></span>
-<span><span class="co">##  $ log2p1.snvs.per.mbps: num  0.709 0.994 0.857 1.073 0.862 ...</span></span></code></pre>
+<span><span class="co">##  $ log2p1.snvs.per.mbps: num  0.705 1.023 0.877 1.086 0.871 ...</span></span></code></pre>
 </div>
 <div class="section level2" number="6">
 <h2 id="quick-start-putting-it-all-together">
@@ -358,20 +358,20 @@ single <code>data.frame</code>:</p>
 <pre><code><span><span class="co">## 'data.frame':    10 obs. of  16 variables:</span></span>
 <span><span class="co">##  $ Row.names           : 'AsIs' chr  "TCGA-EJ-A65G" "TCGA-FC-7708" "TCGA-G9-6343" "TCGA-G9-6363" ...</span></span>
 <span><span class="co">##  $ subtype             : Factor w/ 4 levels "MS-1","MS-2",..: 1 1 4 1 4 3 1 3 4 3</span></span>
-<span><span class="co">##  $ age.continuous      : num  59.2 56.3 61.2 59.6 56.9 ...</span></span>
-<span><span class="co">##  $ ISUP.grade          : Factor w/ 5 levels "ISUP1","ISUP2",..: 2 2 2 3 2 1 2 2 5 2</span></span>
+<span><span class="co">##  $ age.continuous      : num  57 56.2 62 62 56.1 ...</span></span>
+<span><span class="co">##  $ ISUP.grade          : Factor w/ 5 levels "ISUP1","ISUP2",..: 2 3 2 3 2 1 2 2 5 5</span></span>
 <span><span class="co">##  $ t.category          : Factor w/ 4 levels "T1","T2","T3",..: 2 3 2 4 3 3 2 2 3 3</span></span>
 <span><span class="co">##  $ psa.categorical     : Factor w/ 3 levels "psa_lt_10","psa_10_19.9",..: 1 1 1 1 1 1 1 1 1 1</span></span>
-<span><span class="co">##  $ pga                 : num  6.48 7.23 8.55 10.58 7.55 ...</span></span>
+<span><span class="co">##  $ pga                 : num  6.2 7.33 8.24 10.13 7.68 ...</span></span>
 <span><span class="co">##  $ CHD1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span></span>
 <span><span class="co">##  $ NKX3.1.cna.loss     : Factor w/ 2 levels "Yes","No": 2 1 1 1 2 1 2 2 2 1</span></span>
-<span><span class="co">##  $ MYC.cna.gain        : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 1 2 2 1 1</span></span>
-<span><span class="co">##  $ PTEN.cna.loss       : Factor w/ 2 levels "Yes","No": 2 1 2 1 2 2 2 2 2 1</span></span>
-<span><span class="co">##  $ CDKN1B.cna.loss     : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 1 2</span></span>
+<span><span class="co">##  $ MYC.cna.gain        : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 1 2 2 1 2</span></span>
+<span><span class="co">##  $ PTEN.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 1</span></span>
+<span><span class="co">##  $ CDKN1B.cna.loss     : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 1 2 2 1 1</span></span>
 <span><span class="co">##  $ RB1.cna.loss        : Factor w/ 2 levels "Yes","No": 1 2 1 2 2 2 1 2 2 2</span></span>
 <span><span class="co">##  $ CDH1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span></span>
 <span><span class="co">##  $ TP53.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span></span>
-<span><span class="co">##  $ log2p1.snvs.per.mbps: num  0.649 0.862 0.857 0.994 0.92 ...</span></span></code></pre>
+<span><span class="co">##  $ log2p1.snvs.per.mbps: num  0.641 0.871 0.877 1.023 0.962 ...</span></span></code></pre>
 </div>
 <div class="section level2" number="7">
 <h2 id="references">
