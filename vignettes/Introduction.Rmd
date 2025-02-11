@@ -25,16 +25,16 @@ library(PrCaMethy);
 The `PrCaMethy` package provides resources for predicting clinical and molecular
 features from prostate cancer DNA methylation data. Here is an overview of this vignette:
 
-* [Input data] explains the required format of the input data (CpG beta-values from the Illumina 450K methylation array)
+* [Input data] explains the required format of the input data
 * [`estimate.subtypes`] assigns patients to one of four prostate cancer DNA methylation subtypes.
 * [`gene.methylation`] calculates gene-level methylation
-* [`estimate.features`] predicts clinical and molecular features from gene-level methylation data.
+* [`estimate.features`] predicts clinical and molecular features
 * [Quick start: putting it all together] gives a concise example for how to use the functions of this package.
 
 
 # Input data
 
-Users input a `data.frame` containing beta-values (continuous proportions from 0 to 1) of [CpG sites](https://en.wikipedia.org/wiki/CpG_site#:~:text=such%20as%20microRNAs.-,Methylation%20of%20CpG%20islands%20stably%20silences%20genes,causes%20stable%20silencing%20of%20genes.) from the Infinium Methylation 450K BeadChip array.
+Users input a `data.frame` containing beta-values (continuous proportions from 0 to 1) of [CpG sites](https://en.wikipedia.org/wiki/CpG_site#:~:text=such%20as%20microRNAs.-,Methylation%20of%20CpG%20islands%20stably%20silences%20genes,causes%20stable%20silencing%20of%20genes.) from the Illumina Infinium Methylation 450K BeadChip array.
 A list of these CpGs and their annotation data can be obtained from the [IlluminaHumanMethylation450kanno.ilmn12.hg19 R package](https://www.bioconductor.org/packages/release/data/annotation/html/IlluminaHumanMethylation450kanno.ilmn12.hg19.html).
 
 Ideally, the user would have all ~480k CpGs from the Illumina 450K methylation array.
@@ -53,7 +53,7 @@ Notice the patients are in rows (rownames give patient ids) and CpGs are in colu
 # `estimate.subtypes`
 
 After making sure your methylation dataset is in the correct format (see [Input data]),
-then you can use `estimate.subtypes` to assign each patient to one of four prostate cancer DNA methylation subtypes (named 'MS-1' to 'MS-4').  The subtypes are derived in a forthcoming manuscript.
+then you can use `estimate.subtypes` to assign each patient to one of four prostate cancer DNA methylation subtypes (named 'MS-1' to 'MS-4').  The subtypes are derived in a [forthcoming manuscript](https://www.biorxiv.org/content/10.1101/2025.02.07.637178v1).
 
 First, let's check whether we have the required CpGs for predicting the subtypes:
 
