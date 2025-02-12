@@ -51,7 +51,7 @@ Here is an example dataset used throughout this tutorial:
 ```{r example data}
 data(example.data, package = 'PrCaMethy');
 dim(example.data);
-example.data[1:5,1:5];
+example.data[,1:5];
 ```
 
 Notice the patients are in rows (rownames give patient ids) and CpGs are in columns with CpG ids as the column names.
@@ -80,7 +80,6 @@ subtypes <- estimate.subtypes(
     methy.data = example.data
     );
 subtypes;
-table(subtypes$subtype);
 ```
 
 # `gene.methylation`
@@ -99,7 +98,7 @@ However, to save time, we precomputed the above dataset which you can use for th
 ```{r example gene methy data}
 data(example.data.gene.methy, package = 'PrCaMethy');
 dim(example.data.gene.methy);
-example.data.gene.methy[1:5,1:5];
+example.data.gene.methy[,1:5];
 ```
 
 
@@ -171,7 +170,7 @@ library(PrCaMethy);
 ### prepare your data
 # patients are in rows (rownames give patient ids) with CpG ids as the column names.
 data(example.data, package = 'PrCaMethy');
-example.data[1:5,1:5];
+example.data[,1:5];
 
 ### predict methylation subtypes
 subtypes <- estimate.subtypes(
@@ -181,7 +180,7 @@ table(subtypes$subtype);
 
 ### calculate gene methylation data
 example.data.gene.methy <- gene.methylation(example.data);
-example.data.gene.methy[1:5,1:5];
+example.data.gene.methy[,1:5];
 
 ### predict clinical and molecular features
 features <- estimate.features(
@@ -202,7 +201,3 @@ results <- merge(
     );
 str(results);
 ```
-
-# References
-
-* Fraser M, Sabelnykova VY, Yamaguchi TN, Heisler LE, Livingstone J, Huang V, et al. Genomic hallmarks of localized, non-indolent prostate cancer. Nature 2017 doi 10.1038/nature20788.
