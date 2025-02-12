@@ -25,16 +25,22 @@ library(PrCaMethy);
 The `PrCaMethy` package provides resources for predicting clinical and molecular
 features from prostate cancer DNA methylation data. Here is an overview of this vignette:
 
-* [Input data] explains the required format of the input data (CpG beta-values from the Illumina 450K methylation array)
+* [Input data] explains the required format of the input data
 * [`estimate.subtypes`] assigns patients to one of four prostate cancer DNA methylation subtypes.
 * [`gene.methylation`] calculates gene-level methylation
-* [`estimate.features`] predicts clinical and molecular features from gene-level methylation data.
+* [`estimate.features`] predicts clinical and molecular features
 * [Quick start: putting it all together] gives a concise example for how to use the functions of this package.
+
+An overview of the 3 main R functions is shown in the diagram below:
+
+```{r, echo = FALSE}
+knitr::include_graphics('PrCaMethy_Rpackage_flowchart.png')
+```
 
 
 # Input data
 
-Users input a `data.frame` containing beta-values (continuous proportions from 0 to 1) of [CpG sites](https://en.wikipedia.org/wiki/CpG_site#:~:text=such%20as%20microRNAs.-,Methylation%20of%20CpG%20islands%20stably%20silences%20genes,causes%20stable%20silencing%20of%20genes.) from the Infinium Methylation 450K BeadChip array.
+Users input a `data.frame` containing beta-values (continuous proportions from 0 to 1) of [CpG sites](https://en.wikipedia.org/wiki/CpG_site#:~:text=such%20as%20microRNAs.-,Methylation%20of%20CpG%20islands%20stably%20silences%20genes,causes%20stable%20silencing%20of%20genes.) from the Illumina Infinium Methylation 450K BeadChip array.
 A list of these CpGs and their annotation data can be obtained from the [IlluminaHumanMethylation450kanno.ilmn12.hg19 R package](https://www.bioconductor.org/packages/release/data/annotation/html/IlluminaHumanMethylation450kanno.ilmn12.hg19.html).
 
 Ideally, the user would have all ~480k CpGs from the Illumina 450K methylation array.
@@ -45,7 +51,7 @@ Here is an example dataset used throughout this tutorial:
 ```{r example data}
 data(example.data, package = 'PrCaMethy');
 dim(example.data);
-example.data[1:5,1:5];
+example.data[,1:5];
 ```
 
 Notice the patients are in rows (rownames give patient ids) and CpGs are in columns with CpG ids as the column names.
@@ -53,7 +59,7 @@ Notice the patients are in rows (rownames give patient ids) and CpGs are in colu
 # `estimate.subtypes`
 
 After making sure your methylation dataset is in the correct format (see [Input data]),
-then you can use `estimate.subtypes` to assign each patient to one of four prostate cancer DNA methylation subtypes (named 'MS-1' to 'MS-4').  The subtypes are derived in a forthcoming manuscript.
+then you can use `estimate.subtypes` to assign each patient to one of four prostate cancer DNA methylation subtypes (named 'MS-1' to 'MS-4').  The subtypes are derived in a [forthcoming manuscript](https://www.biorxiv.org/content/10.1101/2025.02.07.637178v1).
 
 First, let's check whether we have the required CpGs for predicting the subtypes:
 
@@ -74,8 +80,13 @@ subtypes <- estimate.subtypes(
     methy.data = example.data
     );
 subtypes;
-table(subtypes$subtype);
 ```
+
+From our manuscript, the subtypes are interpreted as follows:
+
+* MS-1 and MS-2 had better prognosis with MS-2 being most similar to normal tissue
+* MS-4 had the highest risk of biochemical disease recurrence, followed by MS-3.
+* MS-4, followed by MS-3, had higher risk of copy number alterations, somatic driver mutations and higher global mutation density.
 
 # `gene.methylation`
 
@@ -93,14 +104,14 @@ However, to save time, we precomputed the above dataset which you can use for th
 ```{r example gene methy data}
 data(example.data.gene.methy, package = 'PrCaMethy');
 dim(example.data.gene.methy);
-example.data.gene.methy[1:5,1:5];
+example.data.gene.methy[,1:5];
 ```
 
 
 # `estimate.features`
 
 Now that we have gene-level methylation data, we can predict several clinical and molecular features.
-The models used to predict these features were derived and validated in a forthcoming manuscript.
+The models used to predict these features were derived and validated in a [forthcoming manuscript](https://www.biorxiv.org/content/10.1101/2025.02.07.637178v1).
 
 Currently the package supports predicting the following features:
 
@@ -165,7 +176,7 @@ library(PrCaMethy);
 ### prepare your data
 # patients are in rows (rownames give patient ids) with CpG ids as the column names.
 data(example.data, package = 'PrCaMethy');
-example.data[1:5,1:5];
+example.data[,1:5];
 
 ### predict methylation subtypes
 subtypes <- estimate.subtypes(
@@ -175,7 +186,7 @@ table(subtypes$subtype);
 
 ### calculate gene methylation data
 example.data.gene.methy <- gene.methylation(example.data);
-example.data.gene.methy[1:5,1:5];
+example.data.gene.methy[,1:5];
 
 ### predict clinical and molecular features
 features <- estimate.features(
@@ -196,7 +207,3 @@ results <- merge(
     );
 str(results);
 ```
-
-# References
-
-* Fraser M, Sabelnykova VY, Yamaguchi TN, Heisler LE, Livingstone J, Huang V, et al. Genomic hallmarks of localized, non-indolent prostate cancer. Nature 2017 doi 10.1038/nature20788.

@@ -5,7 +5,7 @@
 \alias{example.data}
 \title{Example CpG methylation dataset}
 \format{
-An object of class \code{data.frame} with 10 rows and 98475 columns.
+An object of class \code{matrix} (inherits from \code{array}) with 2 rows and 93031 columns.
 }
 \usage{
 example.data

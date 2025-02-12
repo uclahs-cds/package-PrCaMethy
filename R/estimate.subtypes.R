@@ -18,13 +18,17 @@ estimate.subtypes <- function(methy.data, prop.missing.cutoff = 0.3, impute.usin
         return(check);
         }
     # impute missing values
-    print('Starting imputation...');
-    if (!impute.using.all.cpgs) {
-        methy.data <- methy.data[,check$required.cpgs, drop = FALSE];
+    if (sum(is.na(methy.data)) == 0) {
+        methy.data.imp <- methy.data;
+    } else {
+        print('Starting imputation...');
+        if (!impute.using.all.cpgs) {
+            methy.data <- methy.data[,check$required.cpgs, drop = FALSE];
+            }
+        base::invisible(utils::capture.output(methy.data.imp <- impute::impute.knn(t(methy.data))$data));
+        methy.data.imp <- data.frame(t(methy.data.imp), check.names = FALSE);
+        print('Finished imputation.');
         }
-    base::invisible(utils::capture.output(methy.data.imp <- impute::impute.knn(t(methy.data))$data));
-    methy.data.imp <- data.frame(t(methy.data.imp), check.names = FALSE);
-    print('Finished imputation.')
 
     # requireNamespace in order to get predict() S3 methods to work correctly
     #requireNamespace('pamr', quietly = TRUE);
