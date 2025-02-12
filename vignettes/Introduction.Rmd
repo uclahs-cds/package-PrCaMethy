@@ -82,6 +82,12 @@ subtypes <- estimate.subtypes(
 subtypes;
 ```
 
+From our manuscript, the subtypes are interpreted as follows:
+
+* MS-1 and MS-2 had better prognosis with MS-2 being most similar to normal tissue
+* MS-4 had the highest risk of biochemical disease recurrence, followed by MS-3.
+* MS-4, followed by MS-3, had higher risk of copy number alterations, somatic driver mutations and higher global mutation density.
+
 # `gene.methylation`
 
 Before we can predict other clinical and molecular features, we need to calculate gene-level methylation.
