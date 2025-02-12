@@ -3,16 +3,17 @@ test_that(
     code = {
         data(all.models);
         data(example.data.gene.methy);
+        example.data.imp <- example.data.gene.methy;
 
-        # save time in test by imputing beforehand
-        example.data.imp <- apply(
-            X = example.data.gene.methy,
-            MARGIN = 2,
-            FUN = function(column) {
-                column[is.na(column)] <- median(column, na.rm = TRUE)
-                return(column);
-                }
-            );
+        # # save time in test by imputing beforehand
+        # example.data.imp <- apply(
+        #     X = example.data.gene.methy,
+        #     MARGIN = 2,
+        #     FUN = function(column) {
+        #         column[is.na(column)] <- median(column, na.rm = TRUE)
+        #         return(column);
+        #         }
+        #     );
 
         features <- estimate.features(
             gene.methy.data = example.data.imp,
