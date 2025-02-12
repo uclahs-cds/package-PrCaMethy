@@ -31,6 +31,12 @@ features from prostate cancer DNA methylation data. Here is an overview of this 
 * [`estimate.features`] predicts clinical and molecular features
 * [Quick start: putting it all together] gives a concise example for how to use the functions of this package.
 
+An overview of the 3 main R functions is shown in the diagram below:
+
+```{r, echo = FALSE}
+knitr::include_graphics(system.file('images/PrCaMethy_Rpackage_flowchart.png', package = 'PrCaMethy'))
+```
+
 
 # Input data
 
@@ -100,7 +106,7 @@ example.data.gene.methy[1:5,1:5];
 # `estimate.features`
 
 Now that we have gene-level methylation data, we can predict several clinical and molecular features.
-The models used to predict these features were derived and validated in a forthcoming manuscript.
+The models used to predict these features were derived and validated in a [forthcoming manuscript](https://www.biorxiv.org/content/10.1101/2025.02.07.637178v1).
 
 Currently the package supports predicting the following features:
 
