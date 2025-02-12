@@ -56,7 +56,7 @@
                         <h4 data-toc-skip class="author">Jaron
 Arbet</h4>
             
-            <h4 data-toc-skip class="date">2025-02-07</h4>
+            <h4 data-toc-skip class="date">2025-02-12</h4>
       
 
       <div class="d-none name"><code>Introduction.Rmd</code></div>
@@ -76,8 +76,7 @@ data. Here is an overview of this vignette:</p>
 <ul>
 <li>
 <a href="#input-data">Input data</a> explains the required format of
-the input data (CpG beta-values from the Illumina 450K methylation
-array)</li>
+the input data</li>
 <li>
 <a href="#estimate.subtypes"><code>estimate.subtypes</code></a>
 assigns patients to one of four prostate cancer DNA methylation
@@ -87,13 +86,15 @@ subtypes.</li>
 calculates gene-level methylation</li>
 <li>
 <a href="#estimate.features"><code>estimate.features</code></a>
-predicts clinical and molecular features from gene-level methylation
-data.</li>
+predicts clinical and molecular features</li>
 <li>
 <a href="#quick-start-putting-it-all-together">Quick start: putting
 it all together</a> gives a concise example for how to use the functions
 of this package.</li>
 </ul>
+<p>An overview of the 3 main R functions is shown in the diagram
+below:</p>
+<p><img src="..%2F..%2F..%2F_temp%2FLibrary%2FPrCaMethy%2Fimages%2FPrCaMethy_Rpackage_flowchart.png"><!-- --></p>
 </div>
 <div class="section level2" number="2">
 <h2 id="input-data">
@@ -101,8 +102,8 @@ of this package.</li>
 </h2>
 <p>Users input a <code>data.frame</code> containing beta-values
 (continuous proportions from 0 to 1) of <a href="https://en.wikipedia.org/wiki/CpG_site#:~:text=such%20as%20microRNAs.-,Methylation%20of%20CpG%20islands%20stably%20silences%20genes,causes%20stable%20silencing%20of%20genes." class="external-link">CpG
-sites</a> from the Infinium Methylation 450K BeadChip array. A list of
-these CpGs and their annotation data can be obtained from the <a href="https://www.bioconductor.org/packages/release/data/annotation/html/IlluminaHumanMethylation450kanno.ilmn12.hg19.html" class="external-link">IlluminaHumanMethylation450kanno.ilmn12.hg19
+sites</a> from the Illumina Infinium Methylation 450K BeadChip array. A
+list of these CpGs and their annotation data can be obtained from the <a href="https://www.bioconductor.org/packages/release/data/annotation/html/IlluminaHumanMethylation450kanno.ilmn12.hg19.html" class="external-link">IlluminaHumanMethylation450kanno.ilmn12.hg19
 R package</a>.</p>
 <p>Ideally, the user would have all ~480k CpGs from the Illumina 450K
 methylation array. However, the functions in this package are written to
@@ -112,15 +113,12 @@ have.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example.data</span>, package <span class="op">=</span> <span class="st">'PrCaMethy'</span><span class="op">)</span>;</span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">)</span>;</span></code></pre></div>
-<pre><code><span><span class="co">## [1]    10 98475</span></span></code></pre>
+<pre><code><span><span class="co">## [1]     2 93031</span></span></code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">example.data</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">example.data</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>;</span></code></pre></div>
 <pre><code><span><span class="co">##              cg00212031 cg00214611 cg01707559 cg02839557 cg02842889</span></span>
-<span><span class="co">## TCGA-HC-8213 0.02462198 0.03056710 0.03219727 0.02030848 0.03414936</span></span>
-<span><span class="co">## TCGA-G9-6363 0.02540200 0.02822377 0.02811850 0.02036618 0.02490014</span></span>
-<span><span class="co">## TCGA-G9-6343 0.02199004 0.01950744 0.02095079 0.01715210 0.02402453</span></span>
-<span><span class="co">## TCGA-KK-A8II 0.02535734 0.02641118 0.06661720 0.02099400 0.02870696</span></span>
-<span><span class="co">## TCGA-FC-7708 0.36496063 0.02325888 0.03424532 0.01802437 0.03010162</span></span></code></pre>
+<span><span class="co">## TCGA-CH-5739  0.7147803 0.02184841 0.05281749 0.01970460  0.0284529</span></span>
+<span><span class="co">## TCGA-HC-7079  0.0385789 0.02315141 0.09531891 0.03250703  0.0298547</span></span></code></pre>
 <p>Notice the patients are in rows (rownames give patient ids) and CpGs
 are in columns with CpG ids as the column names.</p>
 </div>
@@ -133,7 +131,8 @@ are in columns with CpG ids as the column names.</p>
 (see <a href="#input-data">Input data</a>), then you can use
 <code>estimate.subtypes</code> to assign each patient to one of four
 prostate cancer DNA methylation subtypes (named ‘MS-1’ to ‘MS-4’). The
-subtypes are derived in a forthcoming manuscript.</p>
+subtypes are derived in a <a href="https://www.biorxiv.org/content/10.1101/2025.02.07.637178v1" class="external-link">forthcoming
+manuscript</a>.</p>
 <p>First, let’s check whether we have the required CpGs for predicting
 the subtypes:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -160,27 +159,20 @@ predicting the subtypes:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">subtypes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/estimate.subtypes.html">estimate.subtypes</a></span><span class="op">(</span></span>
 <span>    methy.data <span class="op">=</span> <span class="va">example.data</span></span>
-<span>    <span class="op">)</span>;</span></code></pre></div>
-<pre><code><span><span class="co">## [1] "Starting imputation..."</span></span></code></pre>
-<pre><code><span><span class="co">## [1] "Finished imputation."</span></span></code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">subtypes</span>;</span></code></pre></div>
+<span>    <span class="op">)</span>;</span>
+<span><span class="va">subtypes</span>;</span></code></pre></div>
 <pre><code><span><span class="co">##              subtype</span></span>
-<span><span class="co">## TCGA-HC-8213    MS-3</span></span>
-<span><span class="co">## TCGA-G9-6363    MS-1</span></span>
-<span><span class="co">## TCGA-G9-6343    MS-4</span></span>
-<span><span class="co">## TCGA-KK-A8II    MS-3</span></span>
-<span><span class="co">## TCGA-FC-7708    MS-1</span></span>
-<span><span class="co">## TCGA-EJ-A65G    MS-1</span></span>
-<span><span class="co">## TCGA-HC-8264    MS-4</span></span>
-<span><span class="co">## TCGA-HC-7077    MS-3</span></span>
-<span><span class="co">## TCGA-HC-7737    MS-1</span></span>
-<span><span class="co">## TCGA-G9-6498    MS-4</span></span></code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">subtypes</span><span class="op">$</span><span class="va">subtype</span><span class="op">)</span>;</span></code></pre></div>
-<pre><code><span><span class="co">## </span></span>
-<span><span class="co">## MS-1 MS-2 MS-3 MS-4 </span></span>
-<span><span class="co">##    4    0    3    3</span></span></code></pre>
+<span><span class="co">## TCGA-CH-5739    MS-3</span></span>
+<span><span class="co">## TCGA-HC-7079    MS-2</span></span></code></pre>
+<p>From our manuscript, the subtypes are interpreted as follows:</p>
+<ul>
+<li>MS-1 and MS-2 had better prognosis with MS-2 being most similar to
+normal tissue</li>
+<li>MS-4 had the highest risk of biochemical disease recurrence,
+followed by MS-3.</li>
+<li>MS-4, followed by MS-3, had higher risk of copy number alterations,
+somatic driver mutations and higher global mutation density.</li>
+</ul>
 </div>
 <div class="section level2" number="4">
 <h2 id="gene-methylation">
@@ -193,22 +185,19 @@ methylation is calculated as the median beta-value among CpG islands in
 the gene promoter region.</p>
 <p>To calculate the gene-level methylation, you would run the following
 code (this may take several minutes):</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">example.data.gene.methy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gene.methylation.html">gene.methylation</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">)</span>;</span></code></pre></div>
 <p>However, to save time, we precomputed the above dataset which you can
 use for the rest of the tutorial:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example.data.gene.methy</span>, package <span class="op">=</span> <span class="st">'PrCaMethy'</span><span class="op">)</span>;</span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">example.data.gene.methy</span><span class="op">)</span>;</span></code></pre></div>
-<pre><code><span><span class="co">## [1]    10 13622</span></span></code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">example.data.gene.methy</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>;</span></code></pre></div>
+<pre><code><span><span class="co">## [1]     2 13622</span></span></code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">example.data.gene.methy</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>;</span></code></pre></div>
 <pre><code><span><span class="co">##                   NIPA2       CNBP      DDX55     MRPS25      MAEL</span></span>
-<span><span class="co">## TCGA-HC-8213 0.02559154 0.06373216 0.02271016 0.04288328 0.9508270</span></span>
-<span><span class="co">## TCGA-G9-6363 0.02742492 0.07798591 0.02023333 0.03035798 0.9471289</span></span>
-<span><span class="co">## TCGA-G9-6343 0.01777770 0.07027852 0.01838692 0.03181392 0.9564349</span></span>
-<span><span class="co">## TCGA-KK-A8II 0.02871662 0.05652067 0.02269506 0.04010106 0.9478795</span></span>
-<span><span class="co">## TCGA-FC-7708 0.01745208 0.06026901 0.01833528 0.02934035 0.9540469</span></span></code></pre>
+<span><span class="co">## TCGA-CH-5739 0.02423149 0.04711574 0.02644465 0.04235761 0.9631823</span></span>
+<span><span class="co">## TCGA-HC-7079 0.01747738 0.04769987 0.01902647 0.03233640 0.9473169</span></span></code></pre>
 </div>
 <div class="section level2" number="5">
 <h2 id="estimate-features">
@@ -217,9 +206,10 @@ use for the rest of the tutorial:</p>
 </h2>
 <p>Now that we have gene-level methylation data, we can predict several
 clinical and molecular features. The models used to predict these
-features were derived and validated in a forthcoming manuscript.</p>
+features were derived and validated in a <a href="https://www.biorxiv.org/content/10.1101/2025.02.07.637178v1" class="external-link">forthcoming
+manuscript</a>.</p>
 <p>Currently the package supports predicting the following features:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">all.models</span>, package <span class="op">=</span> <span class="st">'PrCaMethy'</span><span class="op">)</span>;</span>
 <span><span class="va">features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">all.models</span><span class="op">)</span>;</span>
 <span><span class="va">features</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span></span>
@@ -256,7 +246,7 @@ applied.</li>
 </ul>
 <p>To check whether you have the required genes to predict each
 feature:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/validate.gene.methy.data.html">validate.gene.methy.data</a></span><span class="op">(</span></span>
 <span>    gene.methy.data <span class="op">=</span> <span class="va">example.data.gene.methy</span>,</span>
 <span>    models <span class="op">=</span> <span class="va">all.models</span></span>
@@ -282,35 +272,33 @@ genes that you have but that have high missing data (i.e. proportion of
 missing data exceeds the cutoff to argument
 <code>prop.missing.cutoff</code>, default = 0.3)</li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">check</span><span class="op">$</span><span class="va">val.passed</span>;</span></code></pre></div>
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
 <p>Given that our data passed the validation, this means we can predict
 all features for our dataset:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">features</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/estimate.features.html">estimate.features</a></span><span class="op">(</span></span>
 <span>    gene.methy.data <span class="op">=</span> <span class="va">example.data.gene.methy</span>,</span>
 <span>    models <span class="op">=</span> <span class="va">all.models</span></span>
 <span>    <span class="op">)</span>;</span></code></pre></div>
-<pre><code><span><span class="co">## [1] "Starting imputation..."</span></span>
-<span><span class="co">## [1] "Finished imputation."</span></span></code></pre>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">features</span><span class="op">$</span><span class="va">features</span><span class="op">)</span>;</span></code></pre></div>
-<pre><code><span><span class="co">## 'data.frame':    10 obs. of  14 variables:</span></span>
-<span><span class="co">##  $ age.continuous      : num  51.9 62 62 60.4 56.2 ...</span></span>
-<span><span class="co">##  $ ISUP.grade          : Factor w/ 5 levels "ISUP1","ISUP2",..: 2 3 2 5 3 2 5 1 2 2</span></span>
-<span><span class="co">##  $ t.category          : Factor w/ 4 levels "T1","T2","T3",..: 2 4 2 3 3 2 3 3 2 3</span></span>
-<span><span class="co">##  $ psa.categorical     : Factor w/ 3 levels "psa_lt_10","psa_10_19.9",..: 1 1 1 1 1 1 1 1 1 1</span></span>
-<span><span class="co">##  $ pga                 : num  9.35 10.13 8.24 27.57 7.33 ...</span></span>
-<span><span class="co">##  $ CHD1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span></span>
-<span><span class="co">##  $ NKX3.1.cna.loss     : Factor w/ 2 levels "Yes","No": 2 1 1 1 1 2 2 1 2 2</span></span>
-<span><span class="co">##  $ MYC.cna.gain        : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 1 1 2 2</span></span>
-<span><span class="co">##  $ PTEN.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 1 2 2 2 2 2 2</span></span>
-<span><span class="co">##  $ CDKN1B.cna.loss     : Factor w/ 2 levels "Yes","No": 2 2 2 1 2 2 1 1 2 2</span></span>
-<span><span class="co">##  $ RB1.cna.loss        : Factor w/ 2 levels "Yes","No": 2 2 1 2 2 1 2 2 1 2</span></span>
-<span><span class="co">##  $ CDH1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span></span>
-<span><span class="co">##  $ TP53.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span></span>
-<span><span class="co">##  $ log2p1.snvs.per.mbps: num  0.705 1.023 0.877 1.086 0.871 ...</span></span></code></pre>
+<pre><code><span><span class="co">## 'data.frame':    2 obs. of  14 variables:</span></span>
+<span><span class="co">##  $ age.continuous      : num  61.5 60.7</span></span>
+<span><span class="co">##  $ ISUP.grade          : Factor w/ 5 levels "ISUP1","ISUP2",..: 3 2</span></span>
+<span><span class="co">##  $ t.category          : Factor w/ 4 levels "T1","T2","T3",..: 3 2</span></span>
+<span><span class="co">##  $ psa.categorical     : Factor w/ 3 levels "psa_lt_10","psa_10_19.9",..: 1 1</span></span>
+<span><span class="co">##  $ pga                 : num  25.6 10.9</span></span>
+<span><span class="co">##  $ CHD1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span></span>
+<span><span class="co">##  $ NKX3.1.cna.loss     : Factor w/ 2 levels "Yes","No": 2 2</span></span>
+<span><span class="co">##  $ MYC.cna.gain        : Factor w/ 2 levels "Yes","No": 1 2</span></span>
+<span><span class="co">##  $ PTEN.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span></span>
+<span><span class="co">##  $ CDKN1B.cna.loss     : Factor w/ 2 levels "Yes","No": 2 2</span></span>
+<span><span class="co">##  $ RB1.cna.loss        : Factor w/ 2 levels "Yes","No": 1 2</span></span>
+<span><span class="co">##  $ CDH1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span></span>
+<span><span class="co">##  $ TP53.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span></span>
+<span><span class="co">##  $ log2p1.snvs.per.mbps: num  1.026 0.545</span></span></code></pre>
 </div>
 <div class="section level2" number="6">
 <h2 id="quick-start-putting-it-all-together">
@@ -321,13 +309,13 @@ all together<a class="anchor" aria-label="anchor" href="#quick-start-putting-it-
 functions to verify our data was correct. This was for educational
 purposes, but actually the <code>validate</code> functions are called
 automatically by other functions, thus we can simplify our code:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://upgraded-sniffle-wgqe7j1.pages.github.io/">PrCaMethy</a></span><span class="op">)</span>;</span>
 <span></span>
 <span><span class="co">### prepare your data</span></span>
 <span><span class="co"># patients are in rows (rownames give patient ids) with CpG ids as the column names.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">example.data</span>, package <span class="op">=</span> <span class="st">'PrCaMethy'</span><span class="op">)</span>;</span>
-<span><span class="va">example.data</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>;</span>
+<span><span class="va">example.data</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>;</span>
 <span></span>
 <span><span class="co">### predict methylation subtypes</span></span>
 <span><span class="va">subtypes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/estimate.subtypes.html">estimate.subtypes</a></span><span class="op">(</span></span>
@@ -337,7 +325,7 @@ automatically by other functions, thus we can simplify our code:</p>
 <span></span>
 <span><span class="co">### calculate gene methylation data</span></span>
 <span><span class="va">example.data.gene.methy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gene.methylation.html">gene.methylation</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">)</span>;</span>
-<span><span class="va">example.data.gene.methy</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>;</span>
+<span><span class="va">example.data.gene.methy</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>;</span>
 <span></span>
 <span><span class="co">### predict clinical and molecular features</span></span>
 <span><span class="va">features</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/estimate.features.html">estimate.features</a></span><span class="op">(</span></span>
@@ -347,7 +335,7 @@ automatically by other functions, thus we can simplify our code:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">features</span><span class="op">$</span><span class="va">features</span><span class="op">)</span>;</span></code></pre></div>
 <p>Lastly, you can merge the predicted subtypes and features into a
 single <code>data.frame</code>:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">subtypes</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">features</span><span class="op">$</span><span class="va">features</span>,</span>
@@ -355,33 +343,23 @@ single <code>data.frame</code>:</p>
 <span>    all <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>    <span class="op">)</span>;</span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span>;</span></code></pre></div>
-<pre><code><span><span class="co">## 'data.frame':    10 obs. of  16 variables:</span></span>
-<span><span class="co">##  $ Row.names           : 'AsIs' chr  "TCGA-EJ-A65G" "TCGA-FC-7708" "TCGA-G9-6343" "TCGA-G9-6363" ...</span></span>
-<span><span class="co">##  $ subtype             : Factor w/ 4 levels "MS-1","MS-2",..: 1 1 4 1 4 3 1 3 4 3</span></span>
-<span><span class="co">##  $ age.continuous      : num  57 56.2 62 62 56.1 ...</span></span>
-<span><span class="co">##  $ ISUP.grade          : Factor w/ 5 levels "ISUP1","ISUP2",..: 2 3 2 3 2 1 2 2 5 5</span></span>
-<span><span class="co">##  $ t.category          : Factor w/ 4 levels "T1","T2","T3",..: 2 3 2 4 3 3 2 2 3 3</span></span>
-<span><span class="co">##  $ psa.categorical     : Factor w/ 3 levels "psa_lt_10","psa_10_19.9",..: 1 1 1 1 1 1 1 1 1 1</span></span>
-<span><span class="co">##  $ pga                 : num  6.2 7.33 8.24 10.13 7.68 ...</span></span>
-<span><span class="co">##  $ CHD1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span></span>
-<span><span class="co">##  $ NKX3.1.cna.loss     : Factor w/ 2 levels "Yes","No": 2 1 1 1 2 1 2 2 2 1</span></span>
-<span><span class="co">##  $ MYC.cna.gain        : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 1 2 2 1 2</span></span>
-<span><span class="co">##  $ PTEN.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 1</span></span>
-<span><span class="co">##  $ CDKN1B.cna.loss     : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 1 2 2 1 1</span></span>
-<span><span class="co">##  $ RB1.cna.loss        : Factor w/ 2 levels "Yes","No": 1 2 1 2 2 2 1 2 2 2</span></span>
-<span><span class="co">##  $ CDH1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span></span>
-<span><span class="co">##  $ TP53.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2 2 2 2 2 2 2 2 2</span></span>
-<span><span class="co">##  $ log2p1.snvs.per.mbps: num  0.641 0.871 0.877 1.023 0.962 ...</span></span></code></pre>
-</div>
-<div class="section level2" number="7">
-<h2 id="references">
-<span class="header-section-number">7</span> References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h2>
-<ul>
-<li>Fraser M, Sabelnykova VY, Yamaguchi TN, Heisler LE, Livingstone J,
-Huang V, et al. Genomic hallmarks of localized, non-indolent prostate
-cancer. Nature 2017 doi 10.1038/nature20788.</li>
-</ul>
+<pre><code><span><span class="co">## 'data.frame':    2 obs. of  16 variables:</span></span>
+<span><span class="co">##  $ Row.names           : 'AsIs' chr  "TCGA-CH-5739" "TCGA-HC-7079"</span></span>
+<span><span class="co">##  $ subtype             : Factor w/ 4 levels "MS-1","MS-2",..: 3 2</span></span>
+<span><span class="co">##  $ age.continuous      : num  61.5 60.7</span></span>
+<span><span class="co">##  $ ISUP.grade          : Factor w/ 5 levels "ISUP1","ISUP2",..: 3 2</span></span>
+<span><span class="co">##  $ t.category          : Factor w/ 4 levels "T1","T2","T3",..: 3 2</span></span>
+<span><span class="co">##  $ psa.categorical     : Factor w/ 3 levels "psa_lt_10","psa_10_19.9",..: 1 1</span></span>
+<span><span class="co">##  $ pga                 : num  25.6 10.9</span></span>
+<span><span class="co">##  $ CHD1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span></span>
+<span><span class="co">##  $ NKX3.1.cna.loss     : Factor w/ 2 levels "Yes","No": 2 2</span></span>
+<span><span class="co">##  $ MYC.cna.gain        : Factor w/ 2 levels "Yes","No": 1 2</span></span>
+<span><span class="co">##  $ PTEN.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span></span>
+<span><span class="co">##  $ CDKN1B.cna.loss     : Factor w/ 2 levels "Yes","No": 2 2</span></span>
+<span><span class="co">##  $ RB1.cna.loss        : Factor w/ 2 levels "Yes","No": 1 2</span></span>
+<span><span class="co">##  $ CDH1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span></span>
+<span><span class="co">##  $ TP53.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span></span>
+<span><span class="co">##  $ log2p1.snvs.per.mbps: num  1.026 0.545</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
