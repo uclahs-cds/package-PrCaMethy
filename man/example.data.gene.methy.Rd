@@ -5,7 +5,7 @@
 \alias{example.data.gene.methy}
 \title{Example gene methylation dataset}
 \format{
-An object of class \code{data.frame} with 10 rows and 13622 columns.
+An object of class \code{data.frame} with 2 rows and 13622 columns.
 }
 \usage{
 example.data.gene.methy

@@ -34,7 +34,7 @@ features from prostate cancer DNA methylation data. Here is an overview of this 
 An overview of the 3 main R functions is shown in the diagram below:
 
 ```{r, echo = FALSE}
-knitr::include_graphics(system.file('images/PrCaMethy_Rpackage_flowchart.png', package = 'PrCaMethy'))
+knitr::include_graphics('../inst/images/PrCaMethy_Rpackage_flowchart.png');
 ```
 
 
