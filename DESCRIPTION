@@ -28,4 +28,5 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 LazyDataCompression: xz
 VignetteBuilder: knitr
-URL: https://upgraded-sniffle-wgqe7j1.pages.github.io/
+URL: https://uclahs-cds.github.io/package-PrCaMethy/
+BugReports: https://github.com/uclahs-cds/package-PrCaMethy/issues
