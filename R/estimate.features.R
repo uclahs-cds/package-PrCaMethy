@@ -52,16 +52,11 @@ estimate.features <- function(gene.methy.data, models, prop.missing.cutoff = 0.3
         X = seq_along(models),
         FUN = function(x) {
             m <- models[[x]];
-            #print(names(models)[x]);
             temp <- gene.methy.data.imp[,m$xNames];
             if (inherits(m, 'randomForest')) {
                 pred <- data.frame(predict(m, newdata = temp, type = 'response'), check.names = FALSE);
-                #pred <- data.frame(randomForest:::predict.randomForest(m, newdata = temp, type = 'response'), check.names = FALSE);
-                #pred <- data.frame(pred.rf(m, newdata = temp, type = 'response'), check.names = FALSE);
             } else if (inherits(m, 'multnet')) {
-                #pred <- pred.glmnet(
                 pred <- predict(
-                #pred <- glmnet:::predict.multnet(
                     object = m,
                     newx = as.matrix(temp),
                     s = m$best.lambda,
@@ -69,16 +64,13 @@ estimate.features <- function(gene.methy.data, models, prop.missing.cutoff = 0.3
                     );
             } else if (inherits(m, 'lognet')) {
                 pred <- predict(
-                #pred <- glmnet::predict.glmnet(
                     object = m,
                     newx = as.matrix(temp),
                     s = m$best.lambda,
                     type = 'class'
                     );
             } else if (inherits(m, 'elnet')) {
-                #pred <- pred.glmnet(
                 pred <- predict(
-                #pred <- glmnet::predict.glmnet(
                     object = m,
                     newx = as.matrix(temp),
                     s = m$best.lambda,
