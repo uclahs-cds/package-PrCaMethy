@@ -1,8 +1,10 @@
 # PrCaMethy
 
-The `PrCaMethy` package offers tools for predicting clinical and molecular features using prostate cancer DNA methylation data generated from the Illumina 450K array.
+The `PrCaMethy` R package offers tools for predicting clinical and molecular features using prostate cancer DNA methylation data generated from the Illumina 450K array.
 
-**For a tutorial**, see the Introduction vignette/article.
+## Tutorial
+
+* [Introduction](https://uclahs-cds.github.io/package-PrCaMethy/articles/Introduction.html)
 
 ## Installation
 
