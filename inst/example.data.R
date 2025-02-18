@@ -1,5 +1,5 @@
 devtools::load_all();
-source('config.R') # see project-disease-ProstateTumor-PRAD-000101-MethySubtypes/PrCaMethy/config.R
+source('config.R') # see project PRAD-000101-MethySubtypes/PrCaMethy/config.R
 library(impute);
 
 example.data <- readRDS(arg$path.example.methy.data);

@@ -1,4 +1,4 @@
-source('config.R') # see project-disease-ProstateTumor-PRAD-000101-MethySubtypes/PrCaMethy/config.R
+source('config.R') # see project PRAD-000101-MethySubtypes/PrCaMethy/config.R
 compress <- 'xz';
 test.mode <- FALSE;
 
