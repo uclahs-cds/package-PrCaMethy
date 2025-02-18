@@ -1,10 +1,10 @@
 devtools::load_all();
+source('config.R') # see project PRAD-000101-MethySubtypes/PrCaMethy/config.R
 
 data(cpg.annotation);
 #data(example.data);
 #methy <- example.data; # methylation data with patient ids as rownames, CpGs as columns
-path.data <- '/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/data/2024-07-16_pooled_tumour_normal_all_cpgs_all_cohorts.rds';
-methy <- readRDS(path.data);
+methy <- readRDS(arg$path.example.methy.data);
 print.progress <- TRUE;
 methy.cpgs <- colnames(methy)[grep('^cg', colnames(methy))];
 methy <- NULL;

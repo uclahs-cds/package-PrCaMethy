@@ -1,11 +1,11 @@
 devtools::load_all();
-res.date <- '2025-01-13';
+source('config.R') # see project PRAD-000101-MethySubtypes/PrCaMethy/config.R
 
-discrete.methy <- FALSE;
 compress <- 'xz';
 test.mode <- FALSE;
 
-path.ml.res <- paste0('/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/output/prediction/', res.date, '_F72-predict-clinical-and-drivers_gene-methy_association-filter_discrete-methy', discrete.methy, '.RData');
+arg$path.ml.res <- arg$path.ml.res;
+res.date <- regmatches(arg$path.ml.res, regexpr('\\d{4}-\\d{2}-\\d{2}', arg$path.ml.res));
 tolerances <- c(0, 0.01, 0.02, 0.03, 0.04, 0.05) # use smallest model within __ of best model
 
 model.size <- lapply(
@@ -13,7 +13,7 @@ model.size <- lapply(
     FUN = function(z) {
         tolerance <- tolerances[z];
 
-        load(path.ml.res);
+        load(arg$path.ml.res);
 
         outcomes <- unique(ml.res.params$outcome);
 
@@ -80,11 +80,11 @@ model.size <- lapply(
 
                 mod.id <- which(ml.res.params$outcome == outcome & ml.res.params$top.features == res$top.features);
 
-                file <- file.path(dirname(path.ml.res), paste0(res.date, '_F72-predict-clinical-and-drivers_discrete-methyFALSE_models-', mod.id, '-', outcome, '-', res$top.features, '.RData'));
+                file <- file.path(dirname(arg$path.ml.res), paste0(res.date, '_F72-predict-clinical-and-drivers_discrete-methyFALSE_models-', mod.id, '-', outcome, '-', res$top.features, '.RData'));
 
                 if (!file.exists(file)) {
                     res.date2 <- as.Date(res.date) - 1;
-                    file <- file.path(dirname(path.ml.res), paste0(res.date2, '_F72-predict-clinical-and-drivers_discrete-methyFALSE_models-', mod.id, '-', outcome, '-', res$top.features, '.RData'));
+                    file <- file.path(dirname(arg$path.ml.res), paste0(res.date2, '_F72-predict-clinical-and-drivers_discrete-methyFALSE_models-', mod.id, '-', outcome, '-', res$top.features, '.RData'));
                     }
                 stopifnot(file.exists(file));
 
