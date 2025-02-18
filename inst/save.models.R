@@ -1,13 +1,12 @@
+source('config.R') # see project-disease-ProstateTumor-PRAD-000101-MethySubtypes/PrCaMethy/config.R
 compress <- 'xz';
 test.mode <- FALSE;
 
-path.ml.res <- '/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/output/prediction/2025-02-05_F72-predict-clinical-and-drivers_gene-methy_association-filter_discrete-methyFALSE_updated.RData';
-path.final.models <- '/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/output/prediction/2025-02-05_PrCaMethy_final_models.rds';
-load(path.ml.res);
-final.models <- readRDS(path.final.models);
+load(arg$path.ml.res);
+final.models <- readRDS(arg$path.final.models);
 
 # extract date from path.ml.res
-res.date <- gsub('.*/output/prediction/(\\d{4}-\\d{2}-\\d{2}).*', '\\1', path.ml.res);
+res.date <- gsub('.*/output/prediction/(\\d{4}-\\d{2}-\\d{2}).*', '\\1', arg$path.ml.res);
 res.date;
 
 outcomes <- unique(ml.res.params$outcome);
@@ -67,11 +66,11 @@ models <- lapply(
             ml.res.params$top.features == final.model$top.features
             );
 
-        file <- file.path(dirname(path.ml.res), paste0(res.date, '_F72-predict-clinical-and-drivers_discrete-methyFALSE_models-', mod.id, '-', outcome, '-', final.model$top.features, '.RData'));
+        file <- file.path(dirname(arg$path.ml.res), paste0(res.date, '_F72-predict-clinical-and-drivers_discrete-methyFALSE_models-', mod.id, '-', outcome, '-', final.model$top.features, '.RData'));
 
         if (!file.exists(file)) {
             res.date2 <- as.Date(res.date) - 1;
-            file <- file.path(dirname(path.ml.res), paste0(res.date2, '_F72-predict-clinical-and-drivers_discrete-methyFALSE_models-', mod.id, '-', outcome, '-', final.model$top.features, '.RData'));
+            file <- file.path(dirname(arg$path.ml.res), paste0(res.date2, '_F72-predict-clinical-and-drivers_discrete-methyFALSE_models-', mod.id, '-', outcome, '-', final.model$top.features, '.RData'));
             }
         stopifnot(file.exists(file));
 

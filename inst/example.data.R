@@ -1,8 +1,8 @@
 devtools::load_all();
+source('config.R') # see project-disease-ProstateTumor-PRAD-000101-MethySubtypes/PrCaMethy/config.R
 library(impute);
-path.data <- '/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/data/2024-07-16_pooled_tumour_normal_all_cpgs_all_cohorts.rds';
 
-example.data <- readRDS(path.data);
+example.data <- readRDS(arg$path.example.methy.data);
 rownames(example.data) <- example.data$patient.id;
 example.data <- subset(example.data, subset = cohort == 'TCGA', select = - c(patient.id, cohort));
 

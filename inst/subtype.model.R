@@ -1,6 +1,5 @@
-path.subtype.model <- '/hot/project/disease/ProstateTumor/PRAD-000101-MethySubtypes/data/2024-11-13_example-data_for-predicting-subtypes.Rdata';
-
-load(path.subtype.model);
+source('config.R') # see project-disease-ProstateTumor-PRAD-000101-MethySubtypes/PrCaMethy/config.R
+load(arg$path.subtype.model);
 
 subtype.model <- model.for.predicting.subtypes;
 subtype.model.required.cpgs <- rownames(subtype.model$centroids);
