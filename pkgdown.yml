@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   Introduction: Introduction.html
-last_built: 2025-02-15T00:02Z
+last_built: 2025-02-26T23:54Z
 urls:
   reference: https://uclahs-cds.github.io/package-PrCaMethy/index.html/reference
   article: https://uclahs-cds.github.io/package-PrCaMethy/index.html/articles
