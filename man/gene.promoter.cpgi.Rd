@@ -5,12 +5,12 @@
 \alias{gene.promoter.cpgi}
 \title{CpG islands in the gene promoter region}
 \format{
-An object of class \code{list} of length 13952.
+An object of class \code{list} of length 13997.
 }
 \usage{
 gene.promoter.cpgi
 }
 \description{
-List of genes where each element gives a vector of CpG islands in the promoter region of that gene.
+List of genes where each element gives a vector of CpG islands in the promoter region of that gene.  The Illumina cg IDs come from the 450k and 850k arrays.
 }
 \keyword{datasets}
