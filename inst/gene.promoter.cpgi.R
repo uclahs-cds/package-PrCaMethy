@@ -1,7 +1,7 @@
 devtools::load_all();
 source('config.R') # see project PRAD-000101-MethySubtypes/PrCaMethy/config.R
 
-data(cpg.annotation);
+cpg.annotation <- readRDS(arg$path.cpg.annotation);
 #data(example.data);
 #methy <- example.data; # methylation data with patient ids as rownames, CpGs as columns
 methy <- readRDS(arg$path.example.methy.data);
@@ -11,10 +11,9 @@ methy <- NULL;
 gc();
 
 # subset to CpG islands in gene promoter region
-cpg.annotation <- subset(cpg.annotation, subset = genomic.location == 'Promoter' & !is.na(UCSC_RefGene_Name) & Relation_to_Island == 'Island');
+cpg.annotation <- subset(cpg.annotation, subset = promoter == 'yes' & !is.na(UCSC_RefGene_Name) & cpg.type == 'Island');
 genes <- unique(unlist(strsplit(cpg.annotation$UCSC_RefGene_Name, ';')));
 names(genes) <- genes;
-
 
 # the gene column can contain multiple genes separated by ;
 progressr::handlers(list(
@@ -52,13 +51,46 @@ stopifnot(all(check.genes %in% names(gene.promoter.cpgi)));
 check.genes.cpgs <- sapply(gene.promoter.cpgi[check.genes], function(x) length(x) > 0);
 stopifnot(all(check.genes.cpgs));
 
-# replace all '-' with '.' in gene names
+stopifnot(!'.' %in% names(gene.promoter.cpgi));
+
+# replace all '-' with '.' in gene names in order to match with gene names used in models.
 check <- grepl('-', names(gene.promoter.cpgi));
 table(check);
 names(gene.promoter.cpgi)[check];
 names(gene.promoter.cpgi) <- gsub('-', '.', names(gene.promoter.cpgi));
 
+# remove genes with 0 cpgs
+check <- sapply(gene.promoter.cpgi, function(x) length(x) == 0);
+if (any(check)) {
+    gene.promoter.cpgi <- gene.promoter.cpgi[!check];
+    }
+
 usethis::use_data(gene.promoter.cpgi, overwrite = TRUE, compress = 'xz');
 
-# no longer need cpg.annotation.  Delete since takes up too much memory.
-file.remove('../data/cpg.annotation.rda');
+# also save a data.frame long version
+gene.promoter.cpgi.df <- lapply(
+    X = names(gene.promoter.cpgi),
+    FUN = function(x) {
+        d <- data.frame(
+            gene = x,
+            cpg = gene.promoter.cpgi[[x]],
+            stringsAsFactors = FALSE,
+            check.names = FALSE
+            );
+        return(d);
+        }
+    );
+gene.promoter.cpgi.df <- do.call(rbind, gene.promoter.cpgi.df);
+data.table::fwrite(
+    x = gene.promoter.cpgi.df,
+    file = file.path(arg$path.save.annot, paste0(Sys.Date(), '_gene_promoter_cpgi.csv')),
+    row.names = FALSE,
+    col.names = TRUE
+    );
+gene.promoter.cpgi.list <- gene.promoter.cpgi;
+save(
+    gene.promoter.cpgi.list,
+    gene.promoter.cpgi.df,
+    file = file.path(arg$path.save.annot, paste0(Sys.Date(), '_gene_promoter_cpgi.RData')),
+    compress = 'xz'
+    );
