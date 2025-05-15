@@ -1,20 +1,15 @@
-# https://www.bioconductor.org/packages/release/data/annotation/html/IlluminaHumanMethylation450kanno.ilmn12.hg19.html
-# v 0.6.1
 devtools::load_all();
 library(IlluminaHumanMethylation450kanno.ilmn12.hg19);
+source('config.R') # see project PRAD-000101-MethySubtypes/PrCaMethy/config.R
 
 data(Other);
 cpg.annotation <- as.data.frame(Other);
-cpg.annotation$genomic.location <- factor(ifelse(
-    test = cpg.annotation$UCSC_RefGene_Name == '',
-    yes = 'Intergenic',
-    no = ifelse(
+cpg.annotation$promoter <- ifelse(
         test = grepl('TSS200|TSS1500|5\'UTR', cpg.annotation$UCSC_RefGene_Group) | cpg.annotation$Regulatory_Feature_Group == 'Promoter_Associated',
-        yes = 'Promoter',
-        no = 'Body'
-        )
-    ));
-table(cpg.annotation$genomic.location);
+        yes = 'yes',
+        no = 'no'
+        );
+table(cpg.annotation$promoter);
 
 cpg.annotation$cpg <- rownames(cpg.annotation);
 
@@ -61,4 +56,9 @@ cpg.annotation <- merge(
     all.x = TRUE
     );
 
-usethis::use_data(cpg.annotation, overwrite = TRUE, compress = 'xz');
+cpg.annotation.450k <- cpg.annotation;
+#usethis::use_data(cpg.annotation.450k, overwrite = TRUE, compress = 'xz');
+saveRDS(
+    cpg.annotation.450k,
+    file = file.path(arg$path.save.annot, paste0(Sys.Date(), '_cpg_annotation_450k.rds')),
+    );
