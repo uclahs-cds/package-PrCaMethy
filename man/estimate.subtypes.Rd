@@ -15,13 +15,13 @@ estimate.subtypes(
 
 \item{prop.missing.cutoff}{The maximum proportion of missing values allowed for each required CpG. KNN imputation is used to impute missing values.}
 
-\item{impute.using.all.cpgs}{TRUE/FALSE indicating whether to impute missing values using all CpGs in \code{methy.data} or only the CpGs required by \link{subtype.model}.  When TRUE, imputation will be slower and use more memory, but should be more accurate.}
+\item{impute.using.all.cpgs}{TRUE/FALSE indicating whether to impute missing values using all CpGs in \code{methy.data} or only the CpGs required by \link{subtype.model.pamr}.  When TRUE, imputation will be slower and use more memory, but should be more accurate.}
 }
 \description{
 Assign patients to four prostate cancer DNA methylation subtypes
 }
 \examples{
-data('subtype.model');
+data('subtype.model.pamr');
 
 ### example CpG data
 data('example.data');
