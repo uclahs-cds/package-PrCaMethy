@@ -1,8 +1,8 @@
 test_that(
     'catch missing CpGs', {
         data(example.data);
-        data(subtype.model);
-        required.cpgs <- rownames(subtype.model$centroids);
+        data(subtype.model.pamr);
+        required.cpgs <- rownames(subtype.model.pamr$centroids);
         example.data <- example.data[, required.cpgs, drop = FALSE];
         check <- validate.subtype.model.cpgs(example.data);
         expect_true(check$val.passed);

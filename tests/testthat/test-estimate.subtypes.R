@@ -1,8 +1,8 @@
 test_that(
     desc = 'check predicted subtypes',
     code = {
-        data(subtype.model);
-        required.cpgs <- rownames(subtype.model$centroids);
+        data(subtype.model.pamr);
+        required.cpgs <- rownames(subtype.model.pamr$centroids);
 
 
         # example predictions
