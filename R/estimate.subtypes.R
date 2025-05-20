@@ -32,7 +32,7 @@ estimate.subtypes <- function(methy.data, prop.missing.cutoff = 0.3, impute.usin
 
     # requireNamespace in order to get predict() S3 methods to work correctly
     #requireNamespace('pamr', quietly = TRUE);
-    data(subtype.model, envir = environment());
+    data(subtype.model.pamr, envir = environment());
     methy.data.imp.sub <- methy.data.imp[,check$required.cpgs];
     methy.data.imp.sub <- t(methy.data.imp.sub);
     subtypes <- pamr::pamr.predict(
