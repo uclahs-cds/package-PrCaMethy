@@ -40,10 +40,10 @@ knitr::include_graphics('PrCaMethy_Rpackage_flowchart.png')
 
 # Input data
 
-Users input a `data.frame` containing beta-values (continuous proportions from 0 to 1) of [CpG sites](https://en.wikipedia.org/wiki/CpG_site#:~:text=such%20as%20microRNAs.-,Methylation%20of%20CpG%20islands%20stably%20silences%20genes,causes%20stable%20silencing%20of%20genes.) from the Illumina Infinium Methylation 450K BeadChip array.
-A list of these CpGs and their annotation data can be obtained from the [IlluminaHumanMethylation450kanno.ilmn12.hg19 R package](https://www.bioconductor.org/packages/release/data/annotation/html/IlluminaHumanMethylation450kanno.ilmn12.hg19.html).
+Users input a `data.frame` containing beta-values (continuous proportions from 0 to 1) of [CpG sites](https://en.wikipedia.org/wiki/CpG_site#:~:text=such%20as%20microRNAs.-,Methylation%20of%20CpG%20islands%20stably%20silences%20genes,causes%20stable%20silencing%20of%20genes.) from the Illumina human methylation 450K or 850K arrays.
+Annotation data for CpGs in the 450K array can be obtained from [IlluminaHumanMethylation450kanno.ilmn12.hg19 R package](https://www.bioconductor.org/packages/release/data/annotation/html/IlluminaHumanMethylation450kanno.ilmn12.hg19.html) (or the [Rockermeth](https://github.com/cgplab/Rockermeth) R package for hg38) and for the 850K array: [IlluminaHumanMethylationEPICv2anno.20a1.hg38](https://bioconductor.org/packages/release/data/annotation/html/IlluminaHumanMethylationEPICv2anno.20a1.hg38.html).
 
-Ideally, the user would have all ~480k CpGs from the Illumina 450K methylation array.
+Ideally, the user would have all ~480k CpGs from the Illumina 450K methylation array (note ~90% of CpGs from the 450K array are also included in the 850K array).
 However, the functions in this package are written to try and estimate as many features as possible given the CpGs you have.
 
 Here is an example dataset used throughout this tutorial:
@@ -54,12 +54,12 @@ dim(example.data);
 example.data[,1:5];
 ```
 
-Notice the patients are in rows (rownames give patient ids) and CpGs are in columns with CpG ids as the column names.
+Notice the patients are in rows (rownames give patient ids) and CpGs are in columns with Illumina CpG ids as the column names.
 
 # `estimate.subtypes`
 
 After making sure your methylation dataset is in the correct format (see [Input data]),
-then you can use `estimate.subtypes` to assign each patient to one of four prostate cancer DNA methylation subtypes (named 'MS-1' to 'MS-4').  The subtypes are derived in a [forthcoming manuscript](https://www.biorxiv.org/content/10.1101/2025.02.07.637178v1).
+then you can use `estimate.subtypes` to assign each patient to one of four prostate cancer DNA methylation subtypes (named 'MS-1' to 'MS-4').  The subtypes are derived in a [forthcoming manuscript](https://www.biorxiv.org/content/10.1101/2025.02.07.637178v3).
 
 First, let's check whether we have the required CpGs for predicting the subtypes:
 
@@ -111,7 +111,7 @@ example.data.gene.methy[,1:5];
 # `estimate.features`
 
 Now that we have gene-level methylation data, we can predict several clinical and molecular features.
-The models used to predict these features were derived and validated in a [forthcoming manuscript](https://www.biorxiv.org/content/10.1101/2025.02.07.637178v1).
+The models used to predict these features were derived and validated in a [forthcoming manuscript](https://www.biorxiv.org/content/10.1101/2025.02.07.637178v3).
 
 Currently the package supports predicting the following features:
 
