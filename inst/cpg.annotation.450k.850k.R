@@ -41,18 +41,17 @@ gr.hg19 <- GRanges(
     cpg = cpg.450k.sub$cpg
     );
 
-# Download and unpack the chain file if not already downloaded
-chain.file <- 'hg19ToHg38.over.chain'
-if (!file.exists(chain.file)) {
-    download.file(
-        'http://hgdownload.cse.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg38.over.chain.gz',
-        destfile = paste0(chain.file, '.gz')
-        );
-    gunzip(paste0(chain.file, '.gz'), remove = FALSE);
-    }
+# Download the liftover chain file
+# path.file <- file.path(arg$path.save.annot, paste0(chain.file, '.gz'));
+# download.file(
+#     'http://hgdownload.cse.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg38.over.chain.gz',
+#     destfile = path.file
+#     );
+# gunzip(path.file, remove = FALSE);
+
 
 # Load the chain file and perform liftOver
-chain <- import.chain(chain.file)
+chain <- import.chain(arg$path.hg19.to.hg38.chain);
 gr.hg38 <- liftOver(gr.hg19, chain)
 gr.hg38 <- unlist(gr.hg38)
 
