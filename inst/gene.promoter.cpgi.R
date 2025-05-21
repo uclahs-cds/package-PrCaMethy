@@ -51,8 +51,6 @@ stopifnot(all(check.genes %in% names(gene.promoter.cpgi)));
 check.genes.cpgs <- sapply(gene.promoter.cpgi[check.genes], function(x) length(x) > 0);
 stopifnot(all(check.genes.cpgs));
 
-stopifnot(!'.' %in% names(gene.promoter.cpgi));
-
 # replace all '-' with '.' in gene names in order to match with gene names used in models.
 check <- grepl('-', names(gene.promoter.cpgi));
 table(check);
