@@ -35,8 +35,8 @@ for (i in 1:ncol(cpg.450k.sub)) {
 ########## convert 450k coordinates to hg38
 # Create GRanges object from hg19 coordinates
 gr.hg19 <- GRanges(
-    seqnames = paste0('chr', as.character(cpg.450k.sub$chr)),
-    ranges = IRanges(start = cpg.450k.sub$pos, end = cpg.450k.sub$pos),
+    seqnames = paste0('chr', as.character(cpg.450k.sub$chr.hg19)),
+    ranges = IRanges(start = cpg.450k.sub$pos.hg19, end = cpg.450k.sub$pos.hg19),
     strand = cpg.450k.sub$strand,
     cpg = cpg.450k.sub$cpg
     );
