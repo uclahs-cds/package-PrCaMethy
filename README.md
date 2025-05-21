@@ -2,6 +2,8 @@
 
 The `PrCaMethy` R package offers tools for predicting clinical and molecular features using prostate cancer DNA methylation data.
 
+The user inputs CpG beta-values from CpGs contained in the Illumina 450K and/or 850K human methylation arrays.  See the tutorial below for more details.
+
 ## Tutorial
 
 * [Introduction](https://uclahs-cds.github.io/package-PrCaMethy/articles/Introduction.html)
