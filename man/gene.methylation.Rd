@@ -12,8 +12,9 @@ gene.methylation(methy, print.progress = TRUE)
 \item{print.progress}{TRUE/FALSE to show progress bar}
 }
 \description{
-Calculate gene-level methylation for a dataset containing CpGs from the Illumina 450k methylation array.
+Calculate gene-level methylation for a dataset containing CpGs from the Illumina 450k and 850k human methylation arrays.
 Gene-level methylation is calculated as the median beta-value among CpG islands in the gene promoter region.
+Note that gene names that originally contained a hyphen (-) are replaced with a period (.)
 }
 \examples{
 data(example.data);
