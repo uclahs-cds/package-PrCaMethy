@@ -48,13 +48,13 @@ estimate.subtypes <- function(
         if (sum(is.na(methy.data)) == 0) {
             methy.data.imp <- methy.data;
         } else {
-            print('Starting imputation...');
+            message('Starting imputation...');
             if (!pamr.impute.using.all.cpgs) {
                 methy.data <- methy.data[,check$required.cpgs, drop = FALSE];
                 }
             base::invisible(utils::capture.output(methy.data.imp <- impute::impute.knn(t(methy.data))$data));
             methy.data.imp <- data.frame(t(methy.data.imp), check.names = FALSE);
-            print('Finished imputation.');
+            message('Finished imputation.');
             }
         data(subtype.model.pamr, envir = environment());
         methy.data.imp.sub <- methy.data.imp[,check$required.cpgs];
