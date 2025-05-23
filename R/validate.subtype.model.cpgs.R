@@ -57,8 +57,7 @@ validate.subtype.model.cpgs <- function(methy.data, prop.missing.cutoff = 0.3) {
 
     required.cpgs.with.high.missing <- lapply(required.cpgs.prop.missing, function(x) x[x > prop.missing.cutoff]);
     val.passed <- length(unlist(required.cpgs.with.high.missing)) == 0 & length(unlist(missing.cpgs)) == 0;
-    val.passed;
-    unlist(required.cpgs.with.high.missing)
+
     return(list(
         val.passed = val.passed,
         required.cpgs = required.cpgs,
