@@ -103,10 +103,9 @@ estimate.subtypes <- function(
             );
         stopifnot(length(subtypes$class) == nrow(methy.data));
         subtypes <- data.frame(
-            sample.id = rownames(methy.data),
             subtype = subtypes$class
             );
-        rownames(subtypes) <- subtypes$sample.id;
+        rownames(subtypes) <- rownames(methy.data);
         }
 
     return(list(

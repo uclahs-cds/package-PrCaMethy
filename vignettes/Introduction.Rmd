@@ -186,7 +186,7 @@ subtypes <- estimate.subtypes(
 # length(subtypes$validation$required.cpgs)
 # length(subtypes$validation$required.cpgs.with.high.missing)
 # length(subtypes$validation$missing.cpgs)
-table(subtypes$subtypes$subtype);
+table(subtypes$subtypes);
 
 ### calculate gene methylation data
 example.data.gene.methy <- gene.methylation(example.data);
