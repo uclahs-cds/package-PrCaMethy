@@ -15,6 +15,7 @@ Imports:
     pamr,
     progress,
     progressr,
+    randomForest,
     randomForestSRC
 Suggests:
     knitr,
