@@ -9,7 +9,7 @@ validate.subtype.model.cpgs(methy.data, prop.missing.cutoff = 0.3)
 \arguments{
 \item{methy.data}{A data.frame with patients as rows (rownames give patient ids) and column names give CpG ids.}
 
-\item{prop.missing.cutoff}{The maximum proportion of missing values allowed for each required CpG. KNN imputation is used to impute missing values.}
+\item{prop.missing.cutoff}{The maximum proportion of missing values allowed for each required CpG.}
 }
 \value{
 \itemize{
