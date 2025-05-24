@@ -19,8 +19,8 @@ test_that(
     desc = 'required CpGs',
     code = {
         data(example.data);
-        data(subtype.model);
-        required.cpgs <- rownames(subtype.model$centroids);
+        data(subtype.model.pamr);
+        required.cpgs <- rownames(subtype.model.pamr$centroids);
 
         expect_true(all(startsWith(required.cpgs, 'cg')));
 

@@ -6,26 +6,43 @@
 \usage{
 estimate.subtypes(
   methy.data,
+  subtype.model = "RF",
   prop.missing.cutoff = 0.3,
-  impute.using.all.cpgs = TRUE
+  pamr.impute.using.all.cpgs = TRUE,
+  seed = 123
 )
 }
 \arguments{
 \item{methy.data}{A data.frame with patients as rows (rownames give patient ids) and column names give CpG ids.}
 
-\item{prop.missing.cutoff}{The maximum proportion of missing values allowed for each required CpG. KNN imputation is used to impute missing values.}
+\item{subtype.model}{Which subtype model to use ('PAMR' or 'RF' for random forest).  Although slower, we recommend 'RF' for its increased accuracy and intrinsic imputation for missing values.  Further, if some of the required CpGs are completely missing, then you must use 'RF'.}
 
-\item{impute.using.all.cpgs}{TRUE/FALSE indicating whether to impute missing values using all CpGs in \code{methy.data} or only the CpGs required by \link{subtype.model}.  When TRUE, imputation will be slower and use more memory, but should be more accurate.}
+\item{prop.missing.cutoff}{The maximum proportion of missing values allowed for each required CpG.}
+
+\item{pamr.impute.using.all.cpgs}{If using \code{subtype.model = 'PAMR'}, should imputation be done using all CpGs in \code{methy.data} (TRUE) or only the CpGs required by \link{subtype.model.pamr} (FALSE).  When TRUE, imputation will be slower and use more memory, but should be more accurate.}
+
+\item{seed}{integer seed used for imputation.}
+}
+\value{
+\itemize{
+\item \code{subtypes}: data.frame with the estimated subtypes and sample IDs (rownames of \code{methy.data})
+\item \code{validation}: output from \link{validate.subtype.model.cpgs} to check if \code{methy.data} contains the required CpGs and whether any CpGs have high missingness.
+}
 }
 \description{
 Assign patients to four prostate cancer DNA methylation subtypes
 }
 \examples{
-data('subtype.model');
-
 ### example CpG data
 data('example.data');
 
 subtypes <- estimate.subtypes(example.data);
-head(subtypes);
+
+# estimated subtypes
+head(subtypes$subtypes);
+
+# validation results:
+# length(subtypes$validation$required.cpgs)
+# length(subtypes$validation$required.cpgs.with.high.missing)
+# length(subtypes$validation$missing.cpgs)
 }

@@ -79,7 +79,7 @@ Given that the validation passed, we have all required CpGs for predicting the s
 subtypes <- estimate.subtypes(
     methy.data = example.data
     );
-subtypes;
+subtypes$subtypes;
 ```
 
 From our manuscript, the subtypes are interpreted as follows:
@@ -182,7 +182,11 @@ example.data[,1:5];
 subtypes <- estimate.subtypes(
     methy.data = example.data
     );
-table(subtypes$subtype);
+# check validation results:
+# length(subtypes$validation$required.cpgs)
+# length(subtypes$validation$required.cpgs.with.high.missing)
+# length(subtypes$validation$missing.cpgs)
+table(subtypes$subtypes);
 
 ### calculate gene methylation data
 example.data.gene.methy <- gene.methylation(example.data);
@@ -200,7 +204,7 @@ Lastly, you can merge the predicted subtypes and features into a single `data.fr
 
 ```{r merge outputs}
 results <- merge(
-    x = subtypes,
+    x = subtypes$subtypes,
     y = features$features,
     by = 'row.names',
     all = TRUE

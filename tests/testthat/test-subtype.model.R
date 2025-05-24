@@ -1,9 +1,9 @@
 test_that(
     desc = 'check model format',
     code = {
-        data(subtype.model);
-        expect_true(inherits(subtype.model, 'pamrtrained'));
-        required.cpgs <- rownames(subtype.model$centroids);
+        data(subtype.model.pamr);
+        expect_true(inherits(subtype.model.pamr, 'pamrtrained'));
+        required.cpgs <- rownames(subtype.model.pamr$centroids);
         expect_true(all(startsWith(required.cpgs, 'cg')));
         expect_true(length(required.cpgs) == 5486);
 
@@ -22,7 +22,7 @@ test_that(
         example.data.imp <- t(example.data.imp);
         expect_true(sum(is.na(example.data.imp)) == 0);
         subtypes <- pamr::pamr.predict(
-            fit = subtype.model,
+            fit = subtype.model.pamr,
             newx = example.data.imp,
             type = 'class',
             threshold = 0
