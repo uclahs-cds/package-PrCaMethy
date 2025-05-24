@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">PrCaMethy</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,22 @@
       <small>Source: <a href="https://github.com/uclahs-cds/package-PrCaMethy/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.0" id="prcamethy-100-2025-05-22">PrCaMethy 1.0.0 (2025-05-22)<a class="anchor" aria-label="anchor" href="#prcamethy-100-2025-05-22"></a></h2>
+<div class="section level3">
+<h3 id="new-features-1-0-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-1-0-0"></a></h3>
+<ul><li>Added a random forest model for assigning the 4 methylation subtypes (<code>subtype.model.rf</code>). Unlike <code>subtype.model.pamr</code> which requires all 5,486 subtype-defining CpGs to be measured, <code>subtype.model.rf</code> can handle missing CpGs through imputation (although ideally you should have as many of the CpGs as possible).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changed-1-0-0">Changed<a class="anchor" aria-label="anchor" href="#changed-1-0-0"></a></h3>
+<ul><li>Renamed <code>subtype.model</code> to <code>subtype.model.pamr</code> since now the package has 2 models for assigning the methylation subtypes (<code>subtype.model.pamr</code> and <code>subtype.model.rf</code>). This will not cause any breaking changes to the user.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="breaking-changes-1-0-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-0-0"></a></h3>
+<ul><li>
+<code><a href="../reference/estimate.subtypes.html">estimate.subtypes()</a></code> now returns a list with 2 elements: <code>subtypes</code> and <code>validation</code> where the latter checks the validity of the input methylation data. Previously it only returned the subtypes data.frame. This is a minor breaking change.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="prcamethy-020-2025-05-15">PrCaMethy 0.2.0 (2025-05-15)<a class="anchor" aria-label="anchor" href="#prcamethy-020-2025-05-15"></a></h2>
 <div class="section level3">

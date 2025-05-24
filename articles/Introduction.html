@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">PrCaMethy</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,7 @@
                         <h4 data-toc-skip class="author">Jaron
 Arbet</h4>
             
-            <h4 data-toc-skip class="date">2025-05-21</h4>
+            <h4 data-toc-skip class="date">2025-05-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/uclahs-cds/package-PrCaMethy/blob/main/vignettes/Introduction.Rmd" class="external-link"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="d-none name"><code>Introduction.Rmd</code></div>
@@ -164,7 +164,7 @@ predicting the subtypes:</p>
 <code class="sourceCode R"><span><span class="va">subtypes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/estimate.subtypes.html">estimate.subtypes</a></span><span class="op">(</span></span>
 <span>    methy.data <span class="op">=</span> <span class="va">example.data</span></span>
 <span>    <span class="op">)</span>;</span>
-<span><span class="va">subtypes</span>;</span></code></pre></div>
+<span><span class="va">subtypes</span><span class="op">$</span><span class="va">subtypes</span>;</span></code></pre></div>
 <pre><code><span><span class="co">##              subtype</span></span>
 <span><span class="co">## TCGA-CH-5739    MS-3</span></span>
 <span><span class="co">## TCGA-HC-7079    MS-2</span></span></code></pre>
@@ -325,7 +325,11 @@ automatically by other functions, thus we can simplify our code:</p>
 <span><span class="va">subtypes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/estimate.subtypes.html">estimate.subtypes</a></span><span class="op">(</span></span>
 <span>    methy.data <span class="op">=</span> <span class="va">example.data</span></span>
 <span>    <span class="op">)</span>;</span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">subtypes</span><span class="op">$</span><span class="va">subtype</span><span class="op">)</span>;</span>
+<span><span class="co"># check validation results:</span></span>
+<span><span class="co"># length(subtypes$validation$required.cpgs)</span></span>
+<span><span class="co"># length(subtypes$validation$required.cpgs.with.high.missing)</span></span>
+<span><span class="co"># length(subtypes$validation$missing.cpgs)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">subtypes</span><span class="op">$</span><span class="va">subtypes</span><span class="op">)</span>;</span>
 <span></span>
 <span><span class="co">### calculate gene methylation data</span></span>
 <span><span class="va">example.data.gene.methy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gene.methylation.html">gene.methylation</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">)</span>;</span>
@@ -341,7 +345,7 @@ automatically by other functions, thus we can simplify our code:</p>
 single <code>data.frame</code>:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="va">subtypes</span>,</span>
+<span>    x <span class="op">=</span> <span class="va">subtypes</span><span class="op">$</span><span class="va">subtypes</span>,</span>
 <span>    y <span class="op">=</span> <span class="va">features</span><span class="op">$</span><span class="va">features</span>,</span>
 <span>    by <span class="op">=</span> <span class="st">'row.names'</span>,</span>
 <span>    all <span class="op">=</span> <span class="cn">TRUE</span></span>
