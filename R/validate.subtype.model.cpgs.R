@@ -55,6 +55,13 @@ validate.subtype.model.cpgs <- function(methy.data, prop.missing.cutoff = 0.3) {
         message('Warning: ', cpgs.high.miss.warn, ' out of ', length(required.cpgs) ,' required CpGs have > 50% missing values. Having many CpGs with high missing data may decrease accuracy of subtype assignment.');
         }
 
+    ### check missingness in samples
+    miss <- apply(methy.sub, 1, function(x) mean(is.na(x)));
+    n.sample.high.miss <- sum(miss > 0.5);
+    if (n.sample.high.miss > 0) {
+        message('Warning: ', n.sample.high.miss, ' out of ', nrow(methy.sub) ,' samples have > 50% missing values. Samples with high rates of missing values may have innaccurate subtype assignment.');
+        }
+
     required.cpgs.with.high.missing <- lapply(required.cpgs.prop.missing, function(x) x[x > prop.missing.cutoff]);
     val.passed <- length(unlist(required.cpgs.with.high.missing)) == 0 & length(unlist(missing.cpgs)) == 0;
 
