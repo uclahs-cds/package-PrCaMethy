@@ -59,7 +59,7 @@ validate.subtype.model.cpgs <- function(methy.data, prop.missing.cutoff = 0.3) {
     miss <- apply(methy.sub, 1, function(x) mean(is.na(x)));
     n.sample.high.miss <- sum(miss > 0.5);
     if (n.sample.high.miss > 0) {
-        message('Warning: ', n.sample.high.miss, ' out of ', nrow(methy.sub) ,' samples have > 50% missing values. Samples with high rates of missing values may have innaccurate subtype assignment.');
+        message('Warning: ', n.sample.high.miss, ' out of ', nrow(methy.sub) ,' samples have > 50% missing values. Samples with high rates of missing values may have inaccurate subtype assignment.');
         }
 
     required.cpgs.with.high.missing <- lapply(required.cpgs.prop.missing, function(x) x[x > prop.missing.cutoff]);
