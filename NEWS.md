@@ -1,3 +1,9 @@
+## PrCaMethy 1.0.1 (2025-06-06)
+
+### Bug Fixes
+
+- Previously `estimate.subtypes()` with `subtype.model = 'PAMR'` would error if any samples had >50% missing CpGs or any CpGs had >80% missing values (these are the default cutoffs used by `impute::impute.knn` for imputing missing values). This has been fixed such that now error handling for high missingness in CpGs is strictly handled by argument `prop.missing.cutoff` and `validate.subtype.model.cpgs()`. Further, if any CpGs or samples have >50% missing values, a warning will be printed to alert the user that the subtype assignment may be inaccurate.
+
 ## PrCaMethy 1.0.0 (2025-05-22)
 
 ### New Features
