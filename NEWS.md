@@ -1,3 +1,9 @@
+## PrCaMethy 1.1.0 (2025-10-07)
+
+### New Features
+
+- Added a new model to `all.models` for predicting `T2E.fusion`.  Thus `estimate.features()` will now predict `T2E.fusion`.
+
 ## PrCaMethy 1.0.0 (2025-05-22)
 
 ### New Features
