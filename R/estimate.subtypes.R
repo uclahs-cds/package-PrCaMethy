@@ -31,7 +31,7 @@ estimate.subtypes <- function(
     set.seed(seed);
     stopifnot('subtype.model must be RF or PAMR' = subtype.model %in% c('PAMR', 'RF'));
     stopifnot('prop.missing.cutoff must be between 0 and 1' = prop.missing.cutoff >= 0 & prop.missing.cutoff <= 1);
-    stopifnot('PAMR cannot handle CpGs that are 100% missing; consider using RF if some of the required CpGs are completely missing' = !(prop.missing.cutoff == 1 & subtype.model == 'PAMR'));
+    stopifnot('PAMR cannot handle CpGs that are 100% missing so prop.missing.cutoff should be less than 1; consider using RF if some of the required CpGs are completely missing' = !(prop.missing.cutoff == 1 & subtype.model == 'PAMR'));
 
     check <- validate.subtype.model.cpgs(methy.data, prop.missing.cutoff);
     if (!check$val.passed & prop.missing.cutoff < 1) {
@@ -52,7 +52,13 @@ estimate.subtypes <- function(
             if (!pamr.impute.using.all.cpgs) {
                 methy.data <- methy.data[,check$required.cpgs, drop = FALSE];
                 }
-            base::invisible(utils::capture.output(methy.data.imp <- impute::impute.knn(t(methy.data))$data));
+            base::invisible(utils::capture.output(
+                methy.data.imp <- impute::impute.knn(
+                    data = t(methy.data),
+                    rowmax = 1, # allow max possible missingness, let validate.subtype.model.cpgs() print warnings/errors for high missingness instead.
+                    colmax = 1
+                    )$data
+                ));
             methy.data.imp <- data.frame(t(methy.data.imp), check.names = FALSE);
             message('Finished imputation.');
             }

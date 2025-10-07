@@ -106,3 +106,54 @@ test_that(
         expect_true(all(subtypes$sample.id == rownames(example.data)));
         }
     );
+
+test_that(
+    desc = 'PAMR should error if prop.missing.cutoff = 1 since it cannot handle CpGs that are completely missing',
+    code = {
+        data(subtype.model.pamr);
+        data(example.data);
+        required.cpgs <- rownames(subtype.model.pamr$centroids);
+        example.data <- example.data[,required.cpgs];
+
+        # Error msg should be printed
+        expect_error(
+            estimate.subtypes(
+                methy.data = example.data,
+                subtype.model = 'PAMR',
+                prop.missing.cutoff = 1
+                ),
+            'PAMR cannot handle CpGs that are 100% missing'
+            );
+        }
+    );
+test_that(
+    desc = 'When using PAMR, previously impute.knn would throw an error if any CpGs had >50% missing or any samples had >80% missing.
+    Now we want the program to run without error  in these cases, instead errors/warnings should be caught by validate.subtype.model.cpgs()',
+    code = {
+        data(subtype.model.pamr);
+        data(example.data);
+        required.cpgs <- rownames(subtype.model.pamr$centroids);
+        example.data <- example.data[,required.cpgs];
+
+        # add a third patient
+        example.data <- rbind(example.data, patient = example.data[1,]);
+
+        # CpG 1 has 66% missing
+        example.data[1:2,1] <- NA;
+        check <- estimate.subtypes(
+            methy.data = example.data,
+            subtype.model = 'PAMR',
+            prop.missing.cutoff = 0.7
+            );
+        expect_true(check$validation$val.passed);
+
+        # make sure that some samples have >80% missing
+        example.data[1, 1:5000] <- NA;
+        check <- estimate.subtypes(
+            methy.data = example.data,
+            subtype.model = 'PAMR',
+            prop.missing.cutoff = 0.7
+            );
+        expect_true(check$validation$val.passed);
+        }
+    );
