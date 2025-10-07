@@ -9,7 +9,7 @@ The predictors are gene-level methylation estimated by gene.methylation."></head
 
     <a class="navbar-brand me-2" href="../index.html">PrCaMethy</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +51,7 @@ The predictors are gene-level methylation estimated by <a href="gene.methylation
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>An object of class <code>list</code> of length 14.</p>
+    <p>An object of class <code>list</code> of length 15.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -62,6 +62,7 @@ The predictors are gene-level methylation estimated by <a href="gene.methylation
 <li><p><code>pga</code>: percentage of the genome altered was defined as PGA = (base-pair length of all genome regions with gain or loss) / 3.2 billion bases <code>*</code> 100</p></li>
 <li><p><code>&lt;gene&gt;.cna.&lt;loss/gain&gt;</code>: features with <code>.cna.</code> in their name give the gene name and then identify whether there is a copy number loss or gain event.  See the Examples section for the full list of cna features.</p></li>
 <li><p><code>log2p1.snvs.per.mbps</code>: single nucleotide variants (SNVs) per mega-base pairs (Mbps) with a log2(x + 1) transformation.</p></li>
+<li><p><code>T2E.fusion</code>: presence or absence of a TMPRSS2-ERG gene fusion event</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -74,7 +75,7 @@ The predictors are gene-level methylation estimated by <a href="gene.methylation
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "psa.categorical"      "pga"                  "CHD1.cna.loss"       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "NKX3-1.cna.loss"      "MYC.cna.gain"         "PTEN.cna.loss"       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [10] "CDKN1B.cna.loss"      "RB1.cna.loss"         "CDH1.cna.loss"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "TP53.cna.loss"        "log2p1.snvs.per.mbps"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "TP53.cna.loss"        "log2p1.snvs.per.mbps" "T2E.fusion"          </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Model class per feature, e.g. randomForest or glmnet:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">all.models</span>, <span class="va">class</span><span class="op">)</span>;</span></span>
@@ -120,6 +121,9 @@ The predictors are gene-level methylation estimated by <a href="gene.methylation
 <span class="r-out co"><span class="r-pr">#&gt;</span> $log2p1.snvs.per.mbps</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "randomForest"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $T2E.fusion</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lognet" "glmnet"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Required genes for predicting each feature:</span></span></span>
 <span class="r-in"><span><span class="co"># lapply(all.models, function(x) x$xNames)</span></span></span>
@@ -134,7 +138,7 @@ The predictors are gene-level methylation estimated by <a href="gene.methylation
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer></div>
