@@ -5,10 +5,6 @@ test.mode <- FALSE;
 load(arg$path.ml.res);
 final.models <- readRDS(arg$path.final.models);
 
-# extract date from path.ml.res
-# res.date <- gsub('.*/output/prediction/(\\d{4}-\\d{2}-\\d{2}).*', '\\1', arg$path.ml.res);
-# res.date;
-
 outcomes <- unique(ml.res.params$outcome);
 # remove continuous psa because of cohort bias and remove categorical age since unnecessary (can just use continuous age)
 outcomes <- outcomes[!outcomes %in% c('log2.psa.continuous', 'age.categorical')];
@@ -52,8 +48,6 @@ reduce.glmnet.memory <- function(glmnet.fit, lambda.opt) {
     }
 ####
 
-# devtools::load_all();
-# data(example.data.gene.methy);
 models <- lapply(
     X = seq_along(outcomes),
     FUN = function(x) {
@@ -88,36 +82,12 @@ models <- lapply(
 
             ### reduce glmnet model size
             model.red <- reduce.glmnet.memory(model, lam);
-            # stopifnot(all(xnames %in% colnames(example.data.gene.methy)));
-
-            # newx <- as.matrix(example.data.gene.methy[, xnames]);
-            # stopifnot(sum(is.na(newx)) == 0)
-
-            # pred.red <- predict(
-            #     object = model.red,
-            #     newx = newx,
-            #     s = lam,
-            #     type = 'response'
-            #     );
-            # pred.full <- predict(
-            #     object = model,
-            #     newx = newx,
-            #     s = lam,
-            #     type = 'response'
-            #     );
-            # stopifnot(identical(pred.red, pred.full))
-            # format(object.size(model), 'Mb');
-            # format(object.size(model.red), 'Mb');
             model <- model.red;
             model$best.lambda <- lam;
             model$xNames <- xnames;
         } else {
             model <- fit.rf$finalModel;
             }
-        #print(format(object.size(model), 'Mb'));
-        #lapply(model, function(x) format(object.size(x), 'Mb'))
-        #model$terms <- NULL; # unncessary high memory object
-        #model$trainingData <- NULL;
         print(format(object.size(model), 'Mb'));
 
         return(model);
