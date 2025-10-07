@@ -5,7 +5,7 @@
 \alias{all.models}
 \title{Models for predicting clinical and molecular features}
 \format{
-An object of class \code{list} of length 14.
+An object of class \code{list} of length 15.
 }
 \usage{
 all.models
@@ -24,6 +24,7 @@ Models are available for predicting the following features:
 \item \code{pga}: percentage of the genome altered was defined as PGA = (base-pair length of all genome regions with gain or loss) / 3.2 billion bases \code{*} 100
 \item \verb{<gene>.cna.<loss/gain>}: features with \code{.cna.} in their name give the gene name and then identify whether there is a copy number loss or gain event.  See the Examples section for the full list of cna features.
 \item \code{log2p1.snvs.per.mbps}: single nucleotide variants (SNVs) per mega-base pairs (Mbps) with a log2(x + 1) transformation.
+\item \code{T2E.fusion}: presence or absence of a TMPRSS2-ERG gene fusion event
 }
 }
 \examples{
