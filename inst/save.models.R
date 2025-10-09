@@ -5,7 +5,6 @@ test.mode <- FALSE;
 load(arg$path.ml.res);
 final.models <- readRDS(arg$path.final.models);
 res.date <- regmatches(arg$path.ml.res, regexpr('\\d{4}-\\d{2}-\\d{2}', arg$path.ml.res));
-res.date;
 
 outcomes <- unique(ml.res.params$outcome);
 # remove continuous psa because of cohort bias and remove categorical age since unnecessary (can just use continuous age)
