@@ -4,6 +4,8 @@ test.mode <- FALSE;
 
 load(arg$path.ml.res);
 final.models <- readRDS(arg$path.final.models);
+res.date <- regmatches(arg$path.ml.res, regexpr('\\d{4}-\\d{2}-\\d{2}', arg$path.ml.res));
+res.date;
 
 outcomes <- unique(ml.res.params$outcome);
 # remove continuous psa because of cohort bias and remove categorical age since unnecessary (can just use continuous age)
@@ -11,7 +13,7 @@ outcomes <- outcomes[!outcomes %in% c('log2.psa.continuous', 'age.categorical')]
 stopifnot(length(outcomes) == 15);
 
 if (test.mode) {
-    outcomes <- c('age.continuous', 't.stage');
+    outcomes <- c('age.continuous', 't.category');
     }
 
 ####
@@ -59,11 +61,6 @@ models <- lapply(
             ml.res.params$outcome == outcome &
             ml.res.params$top.features == final.model$top.features
             );
-        if (outcome == 'T2E.fusion') {
-            res.date <- arg$date.t2e.model;
-        } else {
-            res.date <- arg$date.old.models;
-            }
 
         file <- file.path(dirname(arg$path.ml.res), paste0(res.date, '_F72-predict-clinical-and-drivers_discrete-methyFALSE_models-', mod.id, '-', outcome, '-', final.model$top.features, '.RData'));
 
