@@ -1,3 +1,9 @@
+## PrCaMethy 1.1.1 (2025-10-09)
+
+### Changed
+
+- This update mostly affects devs.  Previously the new T2E model and old model results were created/saved in 2 different files, making maintenance more difficult.  Thus scripts were consolidated so that all models are now created/saved in a single file.  This will improve maintenance of the package.
+
 ## PrCaMethy 1.1.0 (2025-10-07)
 
 ### New Features
