@@ -1,6 +1,6 @@
 Package: PrCaMethy
 Title: Prostate Cancer Methylation
-Version: 1.1.1
+Version: 1.1.0
 Date: 2025-10-09
 Maintainer: Jaron Arbet <jaron.arbet@gmail.com>
 Description: Resources for predicting clinical and molecular features using prostate cancer DNA methylation data.

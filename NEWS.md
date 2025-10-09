@@ -1,14 +1,9 @@
-## PrCaMethy 1.1.1 (2025-10-09)
-
-### Changed
-
-- This update mostly affects devs.  Previously the new T2E model and old model results were created/saved in 2 different files, making maintenance more difficult.  Thus scripts were consolidated so that all models are now created/saved in a single file.  This will improve maintenance of the package.
-
-## PrCaMethy 1.1.0 (2025-10-07)
+## PrCaMethy 1.1.0 (2025-10-09)
 
 ### New Features
 
 - Added a new model to `all.models` for predicting `T2E.fusion`.  Thus `estimate.features()` will now predict `T2E.fusion`.
+   + For devs: previously the new T2E model and old model results were created/saved in 2 different files, making maintenance more difficult.  Thus scripts were consolidated so that all models are now created/saved in a single file.  This will improve maintenance of the package.
 
 ## PrCaMethy 1.0.0 (2025-05-22)
 
