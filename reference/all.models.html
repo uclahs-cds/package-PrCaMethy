@@ -72,10 +72,10 @@ The predictors are gene-level methylation estimated by <a href="gene.methylation
 <span class="r-in"><span><span class="co"># Models for predicting the following features:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">all.models</span><span class="op">)</span>;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "age.continuous"       "ISUP.grade"           "t.category"          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "psa.categorical"      "pga"                  "CHD1.cna.loss"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "NKX3-1.cna.loss"      "MYC.cna.gain"         "PTEN.cna.loss"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "CDKN1B.cna.loss"      "RB1.cna.loss"         "CDH1.cna.loss"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "TP53.cna.loss"        "log2p1.snvs.per.mbps" "T2E.fusion"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "psa.categorical"      "CHD1.cna.loss"        "NKX3-1.cna.loss"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "MYC.cna.gain"         "PTEN.cna.loss"        "CDKN1B.cna.loss"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "RB1.cna.loss"         "CDH1.cna.loss"        "TP53.cna.loss"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "log2p1.snvs.per.mbps" "pga"                  "T2E.fusion"          </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Model class per feature, e.g. randomForest or glmnet:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">all.models</span>, <span class="va">class</span><span class="op">)</span>;</span></span>
@@ -89,9 +89,6 @@ The predictors are gene-level methylation estimated by <a href="gene.methylation
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "randomForest"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $psa.categorical</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "randomForest"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $pga</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "randomForest"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $CHD1.cna.loss</span>
@@ -121,8 +118,11 @@ The predictors are gene-level methylation estimated by <a href="gene.methylation
 <span class="r-out co"><span class="r-pr">#&gt;</span> $log2p1.snvs.per.mbps</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "randomForest"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $pga</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "randomForest"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $T2E.fusion</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lognet" "glmnet"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "randomForest"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Required genes for predicting each feature:</span></span></span>

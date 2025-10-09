@@ -37,10 +37,12 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.1.0" id="prcamethy-110-2025-10-07">PrCaMethy 1.1.0 (2025-10-07)<a class="anchor" aria-label="anchor" href="#prcamethy-110-2025-10-07"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.1.0" id="prcamethy-110-2025-10-09">PrCaMethy 1.1.0 (2025-10-09)<a class="anchor" aria-label="anchor" href="#prcamethy-110-2025-10-09"></a></h2>
 <div class="section level3">
 <h3 id="new-features-1-1-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-1-1-0"></a></h3>
-<ul><li>Added a new model to <code>all.models</code> for predicting <code>T2E.fusion</code>. Thus <code><a href="../reference/estimate.features.html">estimate.features()</a></code> will now predict <code>T2E.fusion</code>.</li>
+<ul><li>Added a new model to <code>all.models</code> for predicting <code>T2E.fusion</code>. Thus <code><a href="../reference/estimate.features.html">estimate.features()</a></code> will now predict <code>T2E.fusion</code>.
+<ul><li>For devs: previously the new T2E model and old model results were created/saved in 2 different files, making maintenance more difficult. Thus scripts were consolidated so that all models are now created/saved in a single file. This will improve maintenance of the package.</li>
+</ul></li>
 </ul></div>
 </div>
     <div class="section level2">
