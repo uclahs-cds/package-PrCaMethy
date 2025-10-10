@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">PrCaMethy</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,7 @@ Arbet</h4>
             
             <h4 data-toc-skip class="date">2025-10-10</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/uclahs-cds/package-PrCaMethy/blob/v1.1.0/vignettes/Introduction.Rmd" class="external-link"><code>vignettes/Introduction.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/uclahs-cds/package-PrCaMethy/blob/v1.0.0/vignettes/Introduction.Rmd" class="external-link"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="d-none name"><code>Introduction.Rmd</code></div>
     </div>
 
@@ -227,20 +227,19 @@ manuscript</a>.</p>
 <span><span class="va">features</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">features</span><span class="op">$</span><span class="va">n.required.genes</span><span class="op">)</span>,<span class="op">]</span>;</span></code></pre></div>
 <pre><code><span><span class="co">##                 feature n.required.genes</span></span>
 <span><span class="co">## 4       psa.categorical               10</span></span>
-<span><span class="co">## 6       NKX3-1.cna.loss               10</span></span>
-<span><span class="co">## 7          MYC.cna.gain               10</span></span>
-<span><span class="co">## 10         RB1.cna.loss               10</span></span>
-<span><span class="co">## 8         PTEN.cna.loss               50</span></span>
-<span><span class="co">## 9       CDKN1B.cna.loss              100</span></span>
-<span><span class="co">## 15           T2E.fusion              100</span></span>
+<span><span class="co">## 7       NKX3-1.cna.loss               10</span></span>
+<span><span class="co">## 8          MYC.cna.gain               10</span></span>
+<span><span class="co">## 11         RB1.cna.loss               10</span></span>
+<span><span class="co">## 9         PTEN.cna.loss               50</span></span>
+<span><span class="co">## 10      CDKN1B.cna.loss              100</span></span>
 <span><span class="co">## 2            ISUP.grade             1000</span></span>
-<span><span class="co">## 5         CHD1.cna.loss             1000</span></span>
-<span><span class="co">## 14                  pga             1000</span></span>
+<span><span class="co">## 5                   pga             1000</span></span>
+<span><span class="co">## 6         CHD1.cna.loss             1000</span></span>
 <span><span class="co">## 1        age.continuous             5000</span></span>
 <span><span class="co">## 3            t.category             5000</span></span>
-<span><span class="co">## 13 log2p1.snvs.per.mbps             5000</span></span>
-<span><span class="co">## 11        CDH1.cna.loss            13603</span></span>
-<span><span class="co">## 12        TP53.cna.loss            13603</span></span></code></pre>
+<span><span class="co">## 14 log2p1.snvs.per.mbps             5000</span></span>
+<span><span class="co">## 12        CDH1.cna.loss            13603</span></span>
+<span><span class="co">## 13        TP53.cna.loss            13603</span></span></code></pre>
 <ul>
 <li>
 <code>n.required.genes</code> lists the number of required genes to
@@ -289,11 +288,12 @@ all features for our dataset:</p>
 <span>    <span class="op">)</span>;</span></code></pre></div>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">features</span><span class="op">$</span><span class="va">features</span><span class="op">)</span>;</span></code></pre></div>
-<pre><code><span><span class="co">## 'data.frame':    2 obs. of  15 variables:</span></span>
+<pre><code><span><span class="co">## 'data.frame':    2 obs. of  14 variables:</span></span>
 <span><span class="co">##  $ age.continuous      : num  61.5 60.7</span></span>
 <span><span class="co">##  $ ISUP.grade          : Factor w/ 5 levels "ISUP1","ISUP2",..: 3 2</span></span>
 <span><span class="co">##  $ t.category          : Factor w/ 4 levels "T1","T2","T3",..: 3 2</span></span>
 <span><span class="co">##  $ psa.categorical     : Factor w/ 3 levels "psa_lt_10","psa_10_19.9",..: 1 1</span></span>
+<span><span class="co">##  $ pga                 : num  25.6 10.9</span></span>
 <span><span class="co">##  $ CHD1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span></span>
 <span><span class="co">##  $ NKX3.1.cna.loss     : Factor w/ 2 levels "Yes","No": 2 2</span></span>
 <span><span class="co">##  $ MYC.cna.gain        : Factor w/ 2 levels "Yes","No": 1 2</span></span>
@@ -302,9 +302,7 @@ all features for our dataset:</p>
 <span><span class="co">##  $ RB1.cna.loss        : Factor w/ 2 levels "Yes","No": 1 2</span></span>
 <span><span class="co">##  $ CDH1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span></span>
 <span><span class="co">##  $ TP53.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span></span>
-<span><span class="co">##  $ log2p1.snvs.per.mbps: num  1.026 0.545</span></span>
-<span><span class="co">##  $ pga                 : num  25.6 10.9</span></span>
-<span><span class="co">##  $ T2E.fusion          : Factor w/ 2 levels "Yes","No": 1 2</span></span></code></pre>
+<span><span class="co">##  $ log2p1.snvs.per.mbps: num  1.026 0.545</span></span></code></pre>
 </div>
 <div class="section level2" number="6">
 <h2 id="quick-start-putting-it-all-together">
@@ -353,13 +351,14 @@ single <code>data.frame</code>:</p>
 <span>    all <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>    <span class="op">)</span>;</span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span>;</span></code></pre></div>
-<pre><code><span><span class="co">## 'data.frame':    2 obs. of  17 variables:</span></span>
+<pre><code><span><span class="co">## 'data.frame':    2 obs. of  16 variables:</span></span>
 <span><span class="co">##  $ Row.names           : chr  "TCGA-CH-5739" "TCGA-HC-7079"</span></span>
 <span><span class="co">##  $ subtype             : Factor w/ 4 levels "MS-1","MS-2",..: 3 2</span></span>
 <span><span class="co">##  $ age.continuous      : num  61.5 60.7</span></span>
 <span><span class="co">##  $ ISUP.grade          : Factor w/ 5 levels "ISUP1","ISUP2",..: 3 2</span></span>
 <span><span class="co">##  $ t.category          : Factor w/ 4 levels "T1","T2","T3",..: 3 2</span></span>
 <span><span class="co">##  $ psa.categorical     : Factor w/ 3 levels "psa_lt_10","psa_10_19.9",..: 1 1</span></span>
+<span><span class="co">##  $ pga                 : num  25.6 10.9</span></span>
 <span><span class="co">##  $ CHD1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span></span>
 <span><span class="co">##  $ NKX3.1.cna.loss     : Factor w/ 2 levels "Yes","No": 2 2</span></span>
 <span><span class="co">##  $ MYC.cna.gain        : Factor w/ 2 levels "Yes","No": 1 2</span></span>
@@ -368,9 +367,7 @@ single <code>data.frame</code>:</p>
 <span><span class="co">##  $ RB1.cna.loss        : Factor w/ 2 levels "Yes","No": 1 2</span></span>
 <span><span class="co">##  $ CDH1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span></span>
 <span><span class="co">##  $ TP53.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span></span>
-<span><span class="co">##  $ log2p1.snvs.per.mbps: num  1.026 0.545</span></span>
-<span><span class="co">##  $ pga                 : num  25.6 10.9</span></span>
-<span><span class="co">##  $ T2E.fusion          : Factor w/ 2 levels "Yes","No": 1 2</span></span></code></pre>
+<span><span class="co">##  $ log2p1.snvs.per.mbps: num  1.026 0.545</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
