@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">PrCaMethy</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Predict clinical and molecular features</h1>
-      <small class="dont-index">Source: <a href="https://github.com/uclahs-cds/package-PrCaMethy/blob/v0.1.0/R/estimate.features.R" class="external-link"><code>R/estimate.features.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/uclahs-cds/package-PrCaMethy/blob/main/R/estimate.features.R" class="external-link"><code>R/estimate.features.R</code></a></small>
       <div class="d-none name"><code>estimate.features.Rd</code></div>
     </div>
 
@@ -89,12 +89,11 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">features</span> <span class="op">&lt;-</span> <span class="fu">estimate.features</span><span class="op">(</span><span class="va">example.data.gene.methy</span>, <span class="va">all.models</span><span class="op">)</span>;</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">features</span><span class="op">$</span><span class="va">features</span><span class="op">)</span>;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	2 obs. of  14 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	2 obs. of  15 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ age.continuous      : num  61.5 60.7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ISUP.grade          : Factor w/ 5 levels "ISUP1","ISUP2",..: 3 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ t.category          : Factor w/ 4 levels "T1","T2","T3",..: 3 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ psa.categorical     : Factor w/ 3 levels "psa_lt_10","psa_10_19.9",..: 1 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ pga                 : num  25.6 10.9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ CHD1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ NKX3.1.cna.loss     : Factor w/ 2 levels "Yes","No": 2 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ MYC.cna.gain        : Factor w/ 2 levels "Yes","No": 1 2</span>
@@ -104,6 +103,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ CDH1.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ TP53.cna.loss       : Factor w/ 2 levels "Yes","No": 2 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ log2p1.snvs.per.mbps: num  1.026 0.545</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ pga                 : num  25.6 10.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ T2E.fusion          : Factor w/ 2 levels "Yes","No": 1 2</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
